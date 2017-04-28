@@ -169,10 +169,6 @@ docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is t
 
 See 'docker run --help'.
 
-代理有问题：打开docker/prefrence
-
-![](/assets/import.png)
-
 $ docker ps
 
 Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
@@ -185,7 +181,9 @@ docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https
 
 See 'docker run --help'.
 
+代理有问题：打开docker/prefrence
 
+![](/assets/import.png)
 
 $    docker run docker/whalesay cowsay boo
 
