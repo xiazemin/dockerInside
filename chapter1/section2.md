@@ -62,61 +62,19 @@ Status: Downloaded newer image for docker/whalesay:latest
       \\_\_\_\_\\_\_\_\_\_\_/
 ```
 
-$
 
-$
 
-$                      docker images
+本地没有找到从远程（dockerhub）获取成功
+
+查看镜像
+
+$ docker images
 
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 
 docker/whalesay     latest              6b362a9f73eb        23 months ago       247 MB
 
-$   ls
-
-Applications        goLang
-
-Desktop            index.html
-
-Documents        info.php
-
-Downloads        keras
-
-GitBook            nginx
-
-Library            node
-
-Movies            octave
-
-Music            progress.php
-
-PHP            python
-
-PhpstormProjects    scala
-
-Pictures        scikit\_learn\_data
-
-Public            shell
-
-SVN            shiff.php
-
-anaconda        test.php
-
-apcu-5.1.7.tgz        testArray.php
-
-bashrc.bak        vpworkspace
-
-c            项目相关文档
-
-docker
-
-$
-
-FROM mysql:latest
-
-$
-
-$ cd docker/
+发现已经有镜像docker/whalesay
 
 localhost:docker didi$ docker login --username=xiazemin --email=465474307@qq.com
 
@@ -357,6 +315,4 @@ b26122d57afa: Mounted from docker/whalesay
 528c8710fd95: Mounted from docker/whalesay
 
 1154ba695078: Mounted from docker/whalesay
-
-
 
