@@ -2,7 +2,7 @@
 
 下载文件
 
-$ git clone [https://github.com/DockerPool/mysql.git](https://github.com/DockerPool/mysql.git)
+$ git clone https://github.com/xiazemin/mysql-1.git
 
 Cloning into 'mysql'...
 
@@ -17,6 +17,4 @@ Unpacking objects: 100% \(19/19\), done.
 Checking connectivity... done.
 
 创建镜像
-
-
 
