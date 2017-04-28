@@ -22,9 +22,9 @@ $ docker run ubuntu echo hello world
 
 下载地址：[https://docs.docker.com/docker-for-mac/](https://docs.docker.com/docker-for-mac/)
 
-Last login: Fri Apr 28 16:07:35 on ttys003
+如果安装失败：
 
-localhost:~ didi$ docker ps
+$ docker ps
 
 -bash: docker: command not found
 
@@ -36,11 +36,11 @@ localhost:~ didi$ docker info
 
 Containers: 0
 
- Running: 0
+Running: 0
 
- Paused: 0
+Paused: 0
 
- Stopped: 0
+Stopped: 0
 
 Images: 0
 
@@ -48,11 +48,11 @@ Server Version: 17.03.1-ce
 
 Storage Driver: overlay2
 
- Backing Filesystem: extfs
+Backing Filesystem: extfs
 
- Supports d\_type: true
+Supports d\_type: true
 
- Native Overlay Diff: true
+Native Overlay Diff: true
 
 Logging Driver: json-file
 
@@ -60,9 +60,9 @@ Cgroup Driver: cgroupfs
 
 Plugins:
 
- Volume: local
+Volume: local
 
- Network: bridge host ipvlan macvlan null overlay
+Network: bridge host ipvlan macvlan null overlay
 
 Swarm: inactive
 
@@ -80,9 +80,9 @@ init version: N/A \(expected: 949e6facb77383876aeff8a6944dde66b3089574\)
 
 Security Options:
 
- seccomp
+seccomp
 
-  Profile: default
+Profile: default
 
 Kernel Version: 4.9.13-moby
 
@@ -106,25 +106,25 @@ Debug Mode \(client\): false
 
 Debug Mode \(server\): true
 
- File Descriptors: 16
+File Descriptors: 16
 
- Goroutines: 26
+Goroutines: 26
 
- System Time: 2017-04-28T08:28:21.556923057Z
+System Time: 2017-04-28T08:28:21.556923057Z
 
- EventsListeners: 1
+EventsListeners: 1
 
 Http Proxy: 127.0.0.1:8888
 
 Https Proxy: 127.0.0.1:8888
 
-Registry: https://index.docker.io/v1/
+Registry: [https://index.docker.io/v1/](https://index.docker.io/v1/)
 
 Experimental: true
 
 Insecure Registries:
 
- 127.0.0.0/8
+127.0.0.0/8
 
 Live Restore Enabled: false
 
@@ -140,7 +140,7 @@ localhost:~ didi$  docker run hello-world
 
 Unable to find image 'hello-world:latest' locally
 
-docker: Error response from daemon: Get https://registry-1.docker.io/v2/: http: error connecting to proxy http://127.0.0.1:8888: dial tcp 127.0.0.1:8888: getsockopt: connection refused.
+docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https://registry-1.docker.io/v2/): http: error connecting to proxy [http://127.0.0.1:8888](http://127.0.0.1:8888): dial tcp 127.0.0.1:8888: getsockopt: connection refused.
 
 See 'docker run --help'.
 
@@ -148,7 +148,7 @@ localhost:~ didi$  docker run tag
 
 Unable to find image 'tag:latest' locally
 
-docker: Error response from daemon: Get https://registry-1.docker.io/v2/: http: error connecting to proxy http://127.0.0.1:8888: dial tcp 127.0.0.1:8888: getsockopt: connection refused.
+docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https://registry-1.docker.io/v2/): http: error connecting to proxy [http://127.0.0.1:8888](http://127.0.0.1:8888): dial tcp 127.0.0.1:8888: getsockopt: connection refused.
 
 See 'docker run --help'.
 
@@ -156,7 +156,7 @@ localhost:~ didi$   docker run -d -p 80:80 --name webserver nginx
 
 Unable to find image 'nginx:latest' locally
 
-docker: Error response from daemon: Get https://registry-1.docker.io/v2/: http: error connecting to proxy http://127.0.0.1:8888: dial tcp 127.0.0.1:8888: getsockopt: connection refused.
+docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https://registry-1.docker.io/v2/): http: error connecting to proxy [http://127.0.0.1:8888](http://127.0.0.1:8888): dial tcp 127.0.0.1:8888: getsockopt: connection refused.
 
 See 'docker run --help'.
 
@@ -176,7 +176,7 @@ localhost:~ didi$    docker run docker/whalesay cowsay boo
 
 Unable to find image 'docker/whalesay:latest' locally
 
-docker: Error response from daemon: Get https://registry-1.docker.io/v2/: http: error connecting to proxy http://127.0.0.1:8888: dial tcp 127.0.0.1:8888: getsockopt: connection refused.
+docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https://registry-1.docker.io/v2/): http: error connecting to proxy [http://127.0.0.1:8888](http://127.0.0.1:8888): dial tcp 127.0.0.1:8888: getsockopt: connection refused.
 
 See 'docker run --help'.
 
@@ -212,33 +212,37 @@ Digest: sha256:178598e51a26abbc958b8a2e48825c90bc22e641de3d31e18aaf55f3258ba93b
 
 Status: Downloaded newer image for docker/whalesay:latest
 
- \_\_\_\_\_
+\_\_\_\_\_
 
 &lt; boo &gt;
 
- -----
+---
 
-    \
+```
+\
 
-     \
+ \
 
-      \
+  \
 
-                    \#\#        .
+                \#\#        .
 
-              \#\# \#\# \#\#       ==
+          \#\# \#\# \#\#       ==
 
-           \#\# \#\# \#\# \#\#      ===
+       \#\# \#\# \#\# \#\#      ===
 
-       /""""""""""""""""\_\_\_/ ===
+   /""""""""""""""""\_\_\_/ ===
+```
 
-  ~~~ {~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~
+~~~ {~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~
 
-       \\_\_\_\_\_\_ o          \_\_/
+```
+   \\_\_\_\_\_\_ o          \_\_/
 
-        \    \        \_\_/
+    \    \        \_\_/
 
-          \\_\_\_\_\\_\_\_\_\_\_/
+      \\_\_\_\_\\_\_\_\_\_\_/
+```
 
 localhost:~ didi$
 
@@ -252,39 +256,39 @@ docker/whalesay     latest              6b362a9f73eb        23 months ago       
 
 localhost:~ didi$   ls
 
-Applications		goLang
+Applications        goLang
 
-Desktop			index.html
+Desktop            index.html
 
-Documents		info.php
+Documents        info.php
 
-Downloads		keras
+Downloads        keras
 
-GitBook			nginx
+GitBook            nginx
 
-Library			node
+Library            node
 
-Movies			octave
+Movies            octave
 
-Music			progress.php
+Music            progress.php
 
-PHP			python
+PHP            python
 
-PhpstormProjects	scala
+PhpstormProjects    scala
 
-Pictures		scikit\_learn\_data
+Pictures        scikit\_learn\_data
 
-Public			shell
+Public            shell
 
-SVN			shiff.php
+SVN            shiff.php
 
-anaconda		test.php
+anaconda        test.php
 
-apcu-5.1.7.tgz		testArray.php
+apcu-5.1.7.tgz        testArray.php
 
-bashrc.bak		vpworkspace
+bashrc.bak        vpworkspace
 
-c			项目相关文档
+c            项目相关文档
 
 docker
 
@@ -328,13 +332,13 @@ Sending build context to Docker daemon 2.048 kB
 
 Step 1/8 : FROM mysql:latest
 
-Get https://registry-1.docker.io/v2/: net/http: TLS handshake timeout
+Get [https://registry-1.docker.io/v2/](https://registry-1.docker.io/v2/): net/http: TLS handshake timeout
 
 localhost:mysql didi$     cd ..
 
 localhost:docker didi$ ls
 
-Dockerfile	mysql
+Dockerfile    mysql
 
 localhost:docker didi$ vi Dockerfile
 
@@ -348,57 +352,57 @@ Sending build context to Docker daemon 3.584 kB
 
 Step 1/3 : FROM docker/whalesay:latest
 
- ---&gt; 6b362a9f73eb
+---&gt; 6b362a9f73eb
 
 Step 2/3 : RUN apt-get -y update && apt-get install -y fortunes
 
- ---&gt; Running in 2a0fb37454de
+---&gt; Running in 2a0fb37454de
 
-Ign http://archive.ubuntu.com trusty InRelease
+Ign [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty InRelease
 
-Get:1 http://archive.ubuntu.com trusty-updates InRelease \[65.9 kB\]
+Get:1 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-updates InRelease \[65.9 kB\]
 
-Get:2 http://archive.ubuntu.com trusty-security InRelease \[65.9 kB\]
+Get:2 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-security InRelease \[65.9 kB\]
 
-Hit http://archive.ubuntu.com trusty Release.gpg
+Hit [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty Release.gpg
 
-Get:3 http://archive.ubuntu.com trusty-updates/main Sources \[491 kB\]
+Get:3 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-updates/main Sources \[491 kB\]
 
-Get:4 http://archive.ubuntu.com trusty-updates/restricted Sources \[6467 B\]
+Get:4 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-updates/restricted Sources \[6467 B\]
 
-Get:5 http://archive.ubuntu.com trusty-updates/universe Sources \[226 kB\]
+Get:5 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-updates/universe Sources \[226 kB\]
 
-Get:6 http://archive.ubuntu.com trusty-updates/main amd64 Packages \[1226 kB\]
+Get:6 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-updates/main amd64 Packages \[1226 kB\]
 
- Get:7 http://archive.ubuntu.com trusty-updates/restricted amd64 Packages \[21.2 kB\]
+Get:7 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-updates/restricted amd64 Packages \[21.2 kB\]
 
-Get:8 http://archive.ubuntu.com trusty-updates/universe amd64 Packages \[524 kB\]
+Get:8 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-updates/universe amd64 Packages \[524 kB\]
 
- Hit http://archive.ubuntu.com trusty Release
+Hit [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty Release
 
-Get:9 http://archive.ubuntu.com trusty-security/main Sources \[164 kB\]
+Get:9 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-security/main Sources \[164 kB\]
 
-Get:10 http://archive.ubuntu.com trusty-security/restricted Sources \[5066 B\]
+Get:10 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-security/restricted Sources \[5066 B\]
 
-Get:11 http://archive.ubuntu.com trusty-security/universe Sources \[62.6 kB\]
+Get:11 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-security/universe Sources \[62.6 kB\]
 
-Get:12 http://archive.ubuntu.com trusty-security/main amd64 Packages \[758 kB\]
+Get:12 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-security/main amd64 Packages \[758 kB\]
 
-Get:13 http://archive.ubuntu.com trusty-security/restricted amd64 Packages \[17.8 kB\]
+Get:13 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-security/restricted amd64 Packages \[17.8 kB\]
 
-Get:14 http://archive.ubuntu.com trusty-security/universe amd64 Packages \[203 kB\]
+Get:14 [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty-security/universe amd64 Packages \[203 kB\]
 
- Hit http://archive.ubuntu.com trusty/main Sources
+Hit [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty/main Sources
 
-Hit http://archive.ubuntu.com trusty/restricted Sources
+Hit [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty/restricted Sources
 
-Hit http://archive.ubuntu.com trusty/universe Sources
+Hit [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty/universe Sources
 
-Hit http://archive.ubuntu.com trusty/main amd64 Packages
+Hit [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty/main amd64 Packages
 
-Hit http://archive.ubuntu.com trusty/restricted amd64 Packages
+Hit [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty/restricted amd64 Packages
 
-Hit http://archive.ubuntu.com trusty/universe amd64 Packages
+Hit [http://archive.ubuntu.com](http://archive.ubuntu.com) trusty/universe amd64 Packages
 
 Fetched 3836 kB in 3min 18s \(19.3 kB/s\)
 
@@ -412,15 +416,15 @@ Reading state information...
 
 The following extra packages will be installed:
 
-  fortune-mod fortunes-min librecode0
+fortune-mod fortunes-min librecode0
 
 Suggested packages:
 
-  x11-utils bsdmainutils
+x11-utils bsdmainutils
 
 The following NEW packages will be installed:
 
-  fortune-mod fortunes fortunes-min librecode0
+fortune-mod fortunes fortunes-min librecode0
 
 0 upgraded, 4 newly installed, 0 to remove and 94 not upgraded.
 
@@ -428,13 +432,13 @@ Need to get 1961 kB of archives.
 
 After this operation, 4817 kB of additional disk space will be used.
 
-Get:1 http://archive.ubuntu.com/ubuntu/ trusty/main librecode0 amd64 3.6-21 \[771 kB\]
+Get:1 [http://archive.ubuntu.com/ubuntu/](http://archive.ubuntu.com/ubuntu/) trusty/main librecode0 amd64 3.6-21 \[771 kB\]
 
- Get:2 http://archive.ubuntu.com/ubuntu/ trusty/universe fortune-mod amd64 1:1.99.1-7 \[39.5 kB\]
+Get:2 [http://archive.ubuntu.com/ubuntu/](http://archive.ubuntu.com/ubuntu/) trusty/universe fortune-mod amd64 1:1.99.1-7 \[39.5 kB\]
 
-Get:3 http://archive.ubuntu.com/ubuntu/ trusty/universe fortunes-min all 1:1.99.1-7 \[61.8 kB\]
+Get:3 [http://archive.ubuntu.com/ubuntu/](http://archive.ubuntu.com/ubuntu/) trusty/universe fortunes-min all 1:1.99.1-7 \[61.8 kB\]
 
-Get:4 http://archive.ubuntu.com/ubuntu/ trusty/universe fortunes all 1:1.99.1-7 \[1089 kB\]
+Get:4 [http://archive.ubuntu.com/ubuntu/](http://archive.ubuntu.com/ubuntu/) trusty/universe fortunes all 1:1.99.1-7 \[1089 kB\]
 
 debconf: unable to initialize frontend: Dialog
 
@@ -488,15 +492,15 @@ Setting up fortunes \(1:1.99.1-7\) ...
 
 Processing triggers for libc-bin \(2.19-0ubuntu6.6\) ...
 
- ---&gt; ea034feded71
+---&gt; ea034feded71
 
 Removing intermediate container 2a0fb37454de
 
 Step 3/3 : CMD /usr/games/fortune -a \| cowsay
 
- ---&gt; Running in 7226f8aef2c5
+---&gt; Running in 7226f8aef2c5
 
- ---&gt; ca5555513a01
+---&gt; ca5555513a01
 
 Removing intermediate container 7226f8aef2c5
 
@@ -535,6 +539,4 @@ b26122d57afa: Mounted from docker/whalesay
 528c8710fd95: Mounted from docker/whalesay
 
 1154ba695078: Mounted from docker/whalesay
-
-
 
