@@ -58,5 +58,11 @@ cloudposse/mysql                Improved \`mysql\` service with support for ... 
 
 **下载镜像到本地**
 
+**创建容器**
 
+**得到mysql镜像的IP**
+
+**连接mysql**
+
+**将初始化好的mysql保存为镜像**
 
