@@ -58,6 +58,18 @@ cloudposse/mysql                Improved \`mysql\` service with support for ... 
 
 **下载镜像到本地**
 
+$ docker pull mysql
+
+Using default tag: latest
+
+latest: Pulling from library/mysql
+
+cd0a524342ef: Downloading 4.325 MB/52.55 MB
+
+d9c95f06c17e: Download complete
+
+46b2d578f59a: Download complete
+
 **创建容器**
 
 **得到mysql镜像的IP**
