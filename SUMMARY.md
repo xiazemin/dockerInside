@@ -5,6 +5,8 @@
     * [section1](chapter1/section1.md)
     * [section2](chapter1/section2.md)
     * [section3](chapter1/section3.md)
+    * [section4](chapter1/section4.md)
+    * [section5](chapter1/section5.md)
 * [chapter2](chapter2.md)
 * [chapter3](chapter3.md)
 * [chapter4](chapter4.md)
