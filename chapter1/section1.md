@@ -28,11 +28,13 @@ $ docker ps
 
 -bash: docker: command not found
 
-localhost:~ didi$ docker run -d -p 80:80
+ $ docker run -d -p 80:80
 
 -bash: docker: command not found
 
-localhost:~ didi$ docker info
+
+如果安装成功：
+ $ docker info
 
 Containers: 0
 
@@ -128,15 +130,15 @@ Insecure Registries:
 
 Live Restore Enabled: false
 
-localhost:~ didi$ docker images
+ $ docker images
 
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 
-localhost:~ didi$ docker ps
+ $ docker ps
 
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 
-localhost:~ didi$  docker run hello-world
+ $  docker run hello-world
 
 Unable to find image 'hello-world:latest' locally
 
@@ -144,7 +146,9 @@ docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https
 
 See 'docker run --help'.
 
-localhost:~ didi$  docker run tag
+发现失败，重试仍然失败
+
+ $  docker run tag
 
 Unable to find image 'tag:latest' locally
 
@@ -152,7 +156,7 @@ docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https
 
 See 'docker run --help'.
 
-localhost:~ didi$   docker run -d -p 80:80 --name webserver nginx
+ $   docker run -d -p 80:80 --name webserver nginx
 
 Unable to find image 'nginx:latest' locally
 
@@ -160,19 +164,19 @@ docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https
 
 See 'docker run --help'.
 
-localhost:~ didi$   docker run -d -p 80:80 --name webserver nginx
+ $   docker run -d -p 80:80 --name webserver nginx
 
 docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?.
 
 See 'docker run --help'.
 
-localhost:~ didi$
+ $
 
-localhost:~ didi$ docker ps
+ $ docker ps
 
 Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
 
-localhost:~ didi$    docker run docker/whalesay cowsay boo
+ $    docker run docker/whalesay cowsay boo
 
 Unable to find image 'docker/whalesay:latest' locally
 
@@ -180,9 +184,9 @@ docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https
 
 See 'docker run --help'.
 
-localhost:~ didi$
+ $
 
-localhost:~ didi$    docker run docker/whalesay cowsay boo
+ $    docker run docker/whalesay cowsay boo
 
 Unable to find image 'docker/whalesay:latest' locally
 
@@ -244,17 +248,17 @@ Status: Downloaded newer image for docker/whalesay:latest
       \\_\_\_\_\\_\_\_\_\_\_/
 ```
 
-localhost:~ didi$
+ $
 
-localhost:~ didi$
+ $
 
-localhost:~ didi$                      docker images
+ $                      docker images
 
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 
 docker/whalesay     latest              6b362a9f73eb        23 months ago       247 MB
 
-localhost:~ didi$   ls
+ $   ls
 
 Applications        goLang
 
@@ -292,13 +296,13 @@ c            项目相关文档
 
 docker
 
-localhost:~ didi$
+ $
 
 FROM mysql:latest
 
-localhost:~ didi$
+ $
 
-localhost:~ didi$ cd docker/
+ $ cd docker/
 
 localhost:docker didi$ docker login --username=xiazemin --email=465474307@qq.com
 
