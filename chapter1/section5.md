@@ -1,7 +1,6 @@
-# section5
+# 正确生成镜像例子
 
-
- $ docker build -t docker-whale .
+$ docker build -t docker-whale .
 
 Sending build context to Docker daemon 3.584 kB
 
@@ -160,3 +159,4 @@ Step 3/3 : CMD /usr/games/fortune -a \| cowsay
 Removing intermediate container 7226f8aef2c5
 
 Successfully built ca5555513a01
+
