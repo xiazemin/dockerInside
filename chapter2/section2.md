@@ -70,51 +70,59 @@ CONTAINER ID        IMAGE                         COMMAND                  CREAT
 
 edf73a1d208d        hub.c.163.com/library/mysql   "docker-entrypoint..."   6 minutes ago       Up 6 minutes        3306/tcp            some-mysql
 
-
-
 $ docker start edf73a1d208d
 
 edf73a1d208d
 
 连接Mysql数据库
 
-
-
 \(1\).客户端工具连接
-
-
 
 我这里用mysql的可视化工具workbench连接db。
 
-workbench下载地址：http://dev.mysql.com/downloads/workbench/
-
-
-
-
-
-
-
-图5
-
-
+workbench下载地址：[http://dev.mysql.com/downloads/workbench/](http://dev.mysql.com/downloads/workbench/)
 
 \(2\).docker下命令行连接
 
-
-
 1\).首先，进入CMD执行下列命令
 
+docker exec -it edf73a1d208d bash
 
-
-\[java\] view plain copy print?
-
-docker exec -it 88dab2f338c6 bash  
+root@edf73a1d208d:/\#
 
 2\).然后，输入下面命令，并输入密码password
 
-\[java\] view plain copy print?
+my-secret-pw
 
-mysql -uroot -p -h localhost  
+$  docker exec -it edf73a1d208d bash
+
+root@edf73a1d208d:/\# mysql -uroot -p -h localhost
+
+Enter password:
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+
+Your MySQL connection id is 3
+
+Server version: 5.7.18 MySQL Community Server \(GPL\)
 
 
+
+Copyright \(c\) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+
+affiliates. Other names may be trademarks of their respective
+
+owners.
+
+
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+
+
+mysql&gt;
 
