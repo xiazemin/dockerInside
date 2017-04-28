@@ -106,11 +106,7 @@ Your MySQL connection id is 3
 
 Server version: 5.7.18 MySQL Community Server \(GPL\)
 
-
-
 Copyright \(c\) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
-
-
 
 Oracle is a registered trademark of Oracle Corporation and/or its
 
@@ -118,11 +114,9 @@ affiliates. Other names may be trademarks of their respective
 
 owners.
 
-
-
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-
-
 mysql&gt;
+
+https://c.163.com/hub\#/m/repository/?repoId=2955
 
