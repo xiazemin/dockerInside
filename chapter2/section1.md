@@ -1,8 +1,8 @@
 # Docker创建本地mysql镜像
 
+下载文件
 
-
-$ git clone https://github.com/DockerPool/mysql.git
+$ git clone [https://github.com/DockerPool/mysql.git](https://github.com/DockerPool/mysql.git)
 
 Cloning into 'mysql'...
 
@@ -15,4 +15,8 @@ remote: Total 19 \(delta 4\), reused 19 \(delta 4\), pack-reused 0
 Unpacking objects: 100% \(19/19\), done.
 
 Checking connectivity... done.
+
+创建镜像
+
+
 
