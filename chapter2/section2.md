@@ -58,13 +58,63 @@ hub.c.163.com/library/mysql   latest              d5127813070b        2 weeks ag
 
 docker/whalesay               latest              6b362a9f73eb        23 months ago       247 MB
 
-运行镜像
+启动容器：运行镜像
 
 $ docker run --name some-mysql -e MYSQL\_ROOT\_PASSWORD=my-secret-pw -d hub.c.163.com/library/mysql
 
 edf73a1d208d5155dcdb5f97f452b376f3181298ad2ec547a4ae60512401d860
 
+$    docker ps
 
+CONTAINER ID        IMAGE                         COMMAND                  CREATED             STATUS              PORTS               NAMES
+
+edf73a1d208d        hub.c.163.com/library/mysql   "docker-entrypoint..."   6 minutes ago       Up 6 minutes        3306/tcp            some-mysql
+
+
+
+$ docker start edf73a1d208d
+
+edf73a1d208d
+
+连接Mysql数据库
+
+
+
+\(1\).客户端工具连接
+
+
+
+我这里用mysql的可视化工具workbench连接db。
+
+workbench下载地址：http://dev.mysql.com/downloads/workbench/
+
+
+
+
+
+
+
+图5
+
+
+
+\(2\).docker下命令行连接
+
+
+
+1\).首先，进入CMD执行下列命令
+
+
+
+\[java\] view plain copy print?
+
+docker exec -it 88dab2f338c6 bash  
+
+2\).然后，输入下面命令，并输入密码password
+
+\[java\] view plain copy print?
+
+mysql -uroot -p -h localhost  
 
 
 
