@@ -1,6 +1,6 @@
 # Docker-创建一个mysql容器，并保存为本地镜像
 
-查找docker hub上的镜像
+**查找docker hub上的镜像**
 
 $ docker search mysql
 
@@ -56,9 +56,7 @@ datajoint/mysql                 MySQL image pre-configured to work smoothl...   
 
 cloudposse/mysql                Improved \`mysql\` service with support for ...   0
 
-
-
-下载镜像到本地
+**下载镜像到本地**
 
 
 
