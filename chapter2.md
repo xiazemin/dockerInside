@@ -1,4 +1,4 @@
-# Docker-创建一个mysql容器，并保存为本地镜像
+# dockerhub镜像Docker-创建一个mysql容器，并保存为本地镜像
 
 **查找docker hub上的镜像**
 
@@ -78,9 +78,11 @@ docker run --name mysqldb -e MYSQL\_ROOT\_PASSWORD=root -d mysql
 
 docker inspect mysqldb\|grep IPAddress
 
-　　　　　"IPAddress": "172.17.0.4",
+"IPAddress": "172.17.0.4",
 
-        "SecondaryIPAddresses": null
+```
+    "SecondaryIPAddresses": null
+```
 
 **连接mysql**
 
@@ -88,9 +90,7 @@ mysql -h 172.17.0.4 -u root -p
 
 **将初始化好的mysql保存为镜像**
 
- docker commit mysqldb mysql:1.0
+docker commit mysqldb mysql:1.0
 
 3ed4a367c21eb509f1c4e0a772c3e5bdff678497be55700ea256ef34ad87cfc6
-
-
 
