@@ -28,12 +28,11 @@ $ docker ps
 
 -bash: docker: command not found
 
- $ docker run -d -p 80:80
+$ docker run -d -p 80:80
 
 -bash: docker: command not found
 
-
-如果安装成功：
+如果安装成功：  
  $ docker info
 
 Containers: 0
@@ -130,15 +129,15 @@ Insecure Registries:
 
 Live Restore Enabled: false
 
- $ docker images
+$ docker images
 
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 
- $ docker ps
+$ docker ps
 
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 
- $  docker run hello-world
+$  docker run hello-world
 
 Unable to find image 'hello-world:latest' locally
 
@@ -148,7 +147,7 @@ See 'docker run --help'.
 
 发现失败，重试仍然失败
 
- $  docker run tag
+$  docker run tag
 
 Unable to find image 'tag:latest' locally
 
@@ -156,7 +155,7 @@ docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https
 
 See 'docker run --help'.
 
- $   docker run -d -p 80:80 --name webserver nginx
+$   docker run -d -p 80:80 --name webserver nginx
 
 Unable to find image 'nginx:latest' locally
 
@@ -164,19 +163,21 @@ docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https
 
 See 'docker run --help'.
 
- $   docker run -d -p 80:80 --name webserver nginx
+$   docker run -d -p 80:80 --name webserver nginx
 
 docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?.
 
 See 'docker run --help'.
 
- $
+代理有问题：打开docker/prefrence
 
- $ docker ps
+![](/assets/import.png)
+
+$ docker ps
 
 Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
 
- $    docker run docker/whalesay cowsay boo
+$    docker run docker/whalesay cowsay boo
 
 Unable to find image 'docker/whalesay:latest' locally
 
@@ -184,9 +185,9 @@ docker: Error response from daemon: Get [https://registry-1.docker.io/v2/](https
 
 See 'docker run --help'.
 
- $
 
- $    docker run docker/whalesay cowsay boo
+
+$    docker run docker/whalesay cowsay boo
 
 Unable to find image 'docker/whalesay:latest' locally
 
@@ -248,17 +249,17 @@ Status: Downloaded newer image for docker/whalesay:latest
       \\_\_\_\_\\_\_\_\_\_\_/
 ```
 
- $
+$
 
- $
+$
 
- $                      docker images
+$                      docker images
 
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 
 docker/whalesay     latest              6b362a9f73eb        23 months ago       247 MB
 
- $   ls
+$   ls
 
 Applications        goLang
 
@@ -296,13 +297,13 @@ c            项目相关文档
 
 docker
 
- $
+$
 
 FROM mysql:latest
 
- $
+$
 
- $ cd docker/
+$ cd docker/
 
 localhost:docker didi$ docker login --username=xiazemin --email=465474307@qq.com
 
