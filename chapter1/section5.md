@@ -1,6 +1,6 @@
 # section5
 
-localhost:docker didi$ docker login --username=xiazemin --email=465474307@qq.com
+ $ docker login --username=xiazemin --email=465474307@qq.com
 
 Flag --email has been deprecated, will be removed in 1.14.
 
@@ -8,19 +8,19 @@ Password:
 
 Login Succeeded
 
-localhost:docker didi$
+ $
 
 FROM docker/whalesay:latest
 
-localhost:docker didi$
+ $
 
-localhost:docker didi$ ls
+ $ ls
 
 Dockerfile
 
-localhost:docker didi$ mkdir mysql
+ $ mkdir mysql
 
-localhost:docker didi$ cd mysql/
+ $ cd mysql/
 
 localhost:mysql didi$ vi Dockerfile
 
@@ -36,17 +36,17 @@ Get [https://registry-1.docker.io/v2/](https://registry-1.docker.io/v2/): net/ht
 
 localhost:mysql didi$     cd ..
 
-localhost:docker didi$ ls
+ $ ls
 
 Dockerfile    mysql
 
-localhost:docker didi$ vi Dockerfile
+ $ vi Dockerfile
 
-localhost:docker didi$
+ $
 
-localhost:docker didi$
+ $
 
-localhost:docker didi$ docker build -t docker-whale .
+ $ docker build -t docker-whale .
 
 Sending build context to Docker daemon 3.584 kB
 
@@ -206,19 +206,19 @@ Removing intermediate container 7226f8aef2c5
 
 Successfully built ca5555513a01
 
-localhost:docker didi$
+ $
 
-localhost:docker didi$
+ $
 
-localhost:docker didi$
+ $
 
-localhost:docker didi$ docker tag 8e15421920b1 xiazemin/docker-whale:latest
+ $ docker tag 8e15421920b1 xiazemin/docker-whale:latest
 
 Error response from daemon: no such id: 8e15421920b1
 
-localhost:docker didi$ docker tag ca5555513a01 xiazemin/docker-whale:latest
+ $ docker tag ca5555513a01 xiazemin/docker-whale:latest
 
-localhost:docker didi$ docker push xiazemin/docker-whale
+ $ docker push xiazemin/docker-whale
 
 The push refers to a repository \[docker.io/xiazemin/docker-whale\]
 
