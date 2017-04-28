@@ -3,7 +3,7 @@
 * [Introduction](README.md)
 * [chapter1](chapter1.md)
     * [section1](chapter1/section1.md)
-    * [section2](chapter1/section3.md)
+    * [section2](chapter1/section2.md)
     * [section3](chapter1/section3.md)
 * [chapter2](chapter2.md)
 * [chapter3](chapter3.md)
