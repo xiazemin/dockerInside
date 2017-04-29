@@ -1,5 +1,4 @@
 # nginx镜像
-
 $ docker run --name some-nginx -v hub.c.163.com/library/nginx -d nginx
 docker: Error response from daemon: invalid volume spec "hub.c.163.com/library/nginx": invalid volume specification: 'hub.c.163.com/library/nginx': invalid mount config for type "volume": invalid mount path: 'hub.c.163.com/library/nginx' mount path must be absolute.
 See 'docker run --help'.
