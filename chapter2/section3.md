@@ -1,4 +1,4 @@
-\# nginx镜像
+# nginx镜像
 
 $ docker run --name some-nginx -v hub.c.163.com/library/nginx -d nginx
 
