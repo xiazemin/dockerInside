@@ -76,5 +76,5 @@ $  docker run --name xzm-nginx -d -p 8088:80 hub.c.163.com/library/nginx
 
 46f62605a0ca8770ca4175bf98dd671245dee1cd48b8792d66d233934f82110e
 
-![](/assets/import3.png)
+![](/assets/import4.png)
 
