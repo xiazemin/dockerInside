@@ -13,6 +13,7 @@
     * [section1](chapter2/section1.md)
     * [section2](chapter2/section2.md)
     * [section3](chapter2/section3.md)
+    * [section4](chapter2/section4.md)
 * [chapter3](chapter3.md)
 * [chapter4](chapter4.md)
 * [chapter5](chapter5.md)
