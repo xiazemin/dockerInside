@@ -40,5 +40,15 @@ Digest: sha256:a81454cf20e8af62317a7aaf1e312c125bb7a966a1444fe97cdcabe44e3ff315
 
 Status: Downloaded newer image for hub.c.163.com/yswtrue/php-fpm:latest
 
+运行php
+
+$ docker run -p 9000:9000 --name  myphp-fpm -v ~/nginx/www:/www -v $PWD/c hub.c.163.com/library/php -v $PWD/logs:/phplogs   -d hub.c.163.com/yswtrue/php-fpm
+
+PHP 7.1.4 \(cli\) \(built: Apr 18 2017 19:12:23\) \( NTS \)
+
+Copyright \(c\) 1997-2017 The PHP Group
+
+Zend Engine v3.1.0, Copyright \(c\) 1998-2017 Zend Technologies
+
 
 
