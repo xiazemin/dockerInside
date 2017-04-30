@@ -44,5 +44,17 @@ root@localhost's password:
 
 root@060157246b69:~\#
 
+root@060157246b69:~\#   ls
 
+root@060157246b69:~\# pwd
+
+/root
+
+root@060157246b69:~\# cd /
+
+root@060157246b69:/\# ls
+
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+
+root@060157246b69:/\#
 
