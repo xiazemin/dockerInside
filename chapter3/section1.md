@@ -58,3 +58,5 @@ bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  s
 
 root@060157246b69:/\#
 
+ubuntu16.04加入sshd，ssh端口22，默认root密码root
+
