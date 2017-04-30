@@ -1,30 +1,48 @@
 # 创建带sshd服务的docker image
 
-# 
+$ docker pull hub.c.163.com/liuinstein/sshd:latest
 
-$ docker pull hub.c.163.com/ncetest001/nosshd:run5
+latest: Pulling from liuinstein/sshd
 
-run5: Pulling from ncetest001/nosshd
+af49a5ceb2a5: Pull complete
 
-f46924f139ed: Pull complete
+8f9757b472e7: Pull complete
 
-a3ed95caeb02: Pull complete
+e931b117db38: Pull complete
 
-4849cac99801: Pull complete
+47b5e16c0811: Pull complete
 
-bfd2d6cff1b2: Pull complete
+9332eaf1a55b: Pull complete
 
-a132cbd2d554: Pull complete
+dd2d5605e3a6: Pull complete
 
-b11ed2987051: Pull complete
+15715c17ed7d: Pull complete
 
-14bbc91e7677: Pull complete
+658207b1e77a: Pull complete
 
-e598b4a9ebda: Pull complete
+03910d367015: Pull complete
 
-dbccf1eee1bd: Pull complete
+Digest: sha256:c0c649e98defe07d149e3c6413a3d0ab93462be0c8252eae2b69acde29844ff4
 
-Digest: sha256:b31467e47abbf7773b8f4a90df85d79e071815c6177c08810899eff62250c11c
+Status: Downloaded newer image for hub.c.163.com/liuinstein/sshd:latest
 
-Status: Downloaded newer image for hub.c.163.com/ncetest001/nosshd:run5
+$ docker run -d -p 222:22 hub.c.163.com/liuinstein/sshd:latest /usr/sbin/sshd -D
+
+060157246b69b439a894ac5a8e18cc26f89452e23f7cd97fbf8383e66e3b0b1b
+
+$ ssh root@localhost -p 222
+
+The authenticity of host '\[localhost\]:222 \(\[127.0.0.1\]:222\)' can't be established.
+
+ECDSA key fingerprint is SHA256:yD5WCTsSi5t8QnRYfHphiuXX/FEtWnYLhjRNYRrz3k0.
+
+Are you sure you want to continue connecting \(yes/no\)?
+
+Warning: Permanently added '\[localhost\]:222' \(ECDSA\) to the list of known hosts.
+
+root@localhost's password:
+
+root@060157246b69:~\#
+
+
 
