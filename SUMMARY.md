@@ -20,6 +20,7 @@
     * [section1](chapter3/section1.md)
     * [section2](chapter3/section2.md)
     * [section3](chapter3/section3.md)
+    * [section4](chapter3/section4.md)
 * [chapter4](chapter4.md)
 * [chapter5](chapter5.md)
 * [chapter6](chapter6.md)
