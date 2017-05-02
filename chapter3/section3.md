@@ -90,11 +90,11 @@ $ docker attach --sig-proxy=false $CONTAINER\_ID
 查看容器的内部IP    
 $ docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER\_ID    172.17.42.35   
 
-4\)删除一个或多个container、image (rm、rmi）    你可能在使用过程中会build或commit许多镜像，无用的镜像需要删除。但删除这些镜像是有一些条件的：        同一个IMAGE ID可能会有多个TAG (可能还在不同的仓库），首先你要根据这些 image names 来删除标签，当删除最后一个tag的时候就会自动删除镜像；    承上，如果要删除的多个IMAGE NAME在同一个REPOSITORY，可以通过docker rmi <\image\_id>来同时删除剩下的TAG；若在不同Repo则还是需要手动逐个删除TAG；    还存在由这个镜像启动的container时 (即便已经停止），也无法删除镜像；    TO-DO    如何查看镜像与容器的依存关系       
+4\)删除一个或多个container、image (rm、rmi）    你可能在使用过程中会build或commit许多镜像，无用的镜像需要删除。但删除这些镜像是有一些条件的：        同一个IMAGE ID可能会有多个TAG (可能还在不同的仓库），首先你要根据这些 image names 来删除标签，当删除最后一个tag的时候就会自动删除镜像；    承上，如果要删除的多个IMAGE NAME在同一个REPOSITORY，可以通过docker rmi image\_id>来同时删除剩下的TAG；若在不同Repo则还是需要手动逐个删除TAG；    还存在由这个镜像启动的container时 (即便已经停止），也无法删除镜像；    TO-DO    如何查看镜像与容器的依存关系       
 删除容器    
-docker rm <\container\_id/contaner\_name>       
+docker rm container\_id/contaner\_name>       
 删除所有停止的容器    docker rm $\(docker ps -a -q\)   
-删除镜像    docker rmi <\image\_id/image\_name ...>    
+删除镜像    docker rmi image\_id/image\_name ...>    
 下面是一个完整的示例：       
 $ docker images            <==    ubuntu            13.10        195eb90b5349       4 months ago       184.6 MB    ubuntu            saucy        195eb90b5349       4 months ago       184.6 MB    seanlook/ubuntu   rm\_test      195eb90b5349       4 months ago       184.6 MB        使用195eb90b5349启动、停止一个容器后，删除这个镜像   
 $ docker rmi 195eb90b5349    Error response from daemon: Conflict, cannot delete image 195eb90b5349 because it is     tagged in multiple repositories, use -f to force    2014/11/04 14:19:00 Error: failed to remove one or more images        删除seanlook仓库中的tag     <==    $ docker rmi seanlook/ubuntu:rm\_test    Untagged: seanlook/ubuntu:rm\_test        现在删除镜像，还会由于container的存在不能rmi    
