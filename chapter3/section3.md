@@ -1,83 +1,40 @@
 # docker常用命令
 
 总的来说分为以下几种：
-
 容器生命周期管理 — docker \[run\|start\|stop\|restart\|kill\|rm\|pause\|unpause\]
-
 容器操作运维 — docker \[ps\|inspect\|top\|attach\|events\|logs\|wait\|export\|port\]
-
 容器rootfs命令 — docker \[commit\|cp\|diff\]
-
 镜像仓库 — docker \[login\|pull\|push\|search\]
-
 本地镜像管理 — docker \[images\|rmi\|tag\|build\|history\|save\|import\]
-
 其他命令 — docker \[info\|version\]
 
 1 列出机器上的镜像（images）
-
 $ docker images 
-
 REPOSITORY               TAG             IMAGE ID        CREATED         VIRTUAL SIZE
-
 ubuntu                   14.10           2185fd50e2ca    13 days ago     236.9 MB
-
 其中我们可以根据REPOSITORY来判断这个镜像是来自哪个服务器，如果没有 / 则表示官方镜像，类似于username/repos\_name表示Github的个人公共库，类似于regsistory.example.com:5000/repos\_name则表示的是私服。
-
 IMAGE ID列其实是缩写，要显示完整则带上--no-trunc选项
 
-
-
 2. 在docker index中搜索image（search）
-
 Usage: docker search TERM
-
-
-
 $ docker search seanlo
-
 NAME                DESCRIPTION           STARS     OFFICIAL   AUTOMATED
-
 seanloook/centos6   sean's docker repos         0
-
 搜索的范围是官方镜像和所有个人公共镜像。NAME列的 / 后面是仓库的名字。
 
-
-
 3. 从docker registry server 中下拉image或repository（pull）
-
 Usage: docker pull \[OPTIONS\] NAME\[:TAG\]
-
-
-
 $ docker pull centos
-
 上面的命令需要注意，在docker v1.2版本以前，会下载官方镜像的centos仓库里的所有镜像，而从v.13开始官方文档里的说明变了：will pull the centos:latest image, its intermediate layers and any aliases of the same id，也就是只会下载tag为latest的镜像（以及同一images id的其他tag）。
-
 也可以明确指定具体的镜像：
-
-
-
 $ docker pull centos:centos6
-
 当然也可以从某个人的公共仓库（包括自己是私人仓库）拉取，形如docker pull username/repository&lt;:tag\_name&gt; ：
-
-
-
 $ docker pull seanlook/centos:centos6
-
 如果你没有网络，或者从其他私服获取镜像，形如docker pull registry.domain.com:5000/repos:&lt;tag\_name&gt;
-
-
-
 $ docker pull dl.dockerpool.com:5000/mongo:latest
 
 4. 推送一个image或repository到registry（push）
-
 与上面的pull对应，可以推送到Docker Hub的Public、Private以及私服，但不能推送到Top Level Repository。
-
-
-
 $ docker push seanlook/mongo
 
 $ docker push registry.tp-link.net:5000/mongo:2014-10-27
