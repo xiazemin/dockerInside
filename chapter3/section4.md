@@ -82,3 +82,23 @@ always：无论容器的退出代码是什么，Docker都会自动重启该容�
 
 on-failure：只有当容器的退出代码为非0值的时候才会自动重启。另外，该参数还接受一个可选的重启次数参数，\`--restart=on-fialure:5\`表示当容器退出代码为非0时，Docker会尝试自动重启该容器，最多5次。
 
+8.删除容器
+
+\#根据容器标识删除容器
+
+$ sudo docker rm my\_container 
+
+$ sudo docker rm f5a9f05f4214
+
+如果容器已经不再使用，可以使用\`docker rm\`命令来删除他们，也可以通过给\`docker rm\`传递-f标志来删除运行中的Docker容器（Docker 1.6.2+）。
+
+\#删除所有容器
+
+$ sudo docker rm \`docker ps -a -q\`
+
+\`docker ps\`命令会列出现有的全部正在运行的容器信息
+
+-a 标志代表列出所有容器，包括运行的和已经停止的
+
+-q 标志表示只需要返回容器的ID而不会返回容器的其他信息
+
