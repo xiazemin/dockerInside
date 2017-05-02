@@ -65,7 +65,7 @@ $ docker run --name nginx\_test \
 
 6 将一个container固化为一个新的image (commit）    
 当我们在制作自己的镜像的时候，会在container中安装一些工具、修改配置，如果不做commit保存起来，那么container停止以后再启动，这些更改就消失了。    
-docker commit <\container> \[repo:tag\]    后面的repo:tag可选    
+docker commit container \[repo:tag\]    后面的repo:tag可选    
 只能提交正在运行的container，即通过docker ps可以看见的容器，        查看刚运行过的容器    
 $ docker ps -l    
 CONTAINER ID   IMAGE     COMMAND      CREATED       STATUS        PORTS   NAMES    c9fdf26326c9   nginx:1   nginx -g
