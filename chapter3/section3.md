@@ -1,4 +1,4 @@
-# section3
+$ section3
 本文只记录Docker命令在大部分情境下的使用，如果想了解每一个选项的细节，请参考官方文档，这里只作为自己以后的备忘记录下来。
 
 根据自己的理解，总的来说分为以下几种：
@@ -13,7 +13,7 @@
 
 
 1. 列出机器上的镜像（images）
-# docker images 
+$ docker images 
 REPOSITORY               TAG             IMAGE ID        CREATED         VIRTUAL SIZE
 ubuntu                   14.10           2185fd50e2ca    13 days ago     236.9 MB
 …
@@ -23,7 +23,7 @@ IMAGE ID列其实是缩写，要显示完整则带上--no-trunc选项
 2. 在docker index中搜索image（search）
 Usage: docker search TERM
 
-# docker search seanlo
+$ docker search seanlo
 NAME                DESCRIPTION           STARS     OFFICIAL   AUTOMATED
 seanloook/centos6   sean's docker repos         0
 搜索的范围是官方镜像和所有个人公共镜像。NAME列的 / 后面是仓库的名字。
@@ -31,22 +31,22 @@ seanloook/centos6   sean's docker repos         0
 3. 从docker registry server 中下拉image或repository（pull）
 Usage: docker pull [OPTIONS] NAME[:TAG]
 
-# docker pull centos
+$ docker pull centos
 上面的命令需要注意，在docker v1.2版本以前，会下载官方镜像的centos仓库里的所有镜像，而从v.13开始官方文档里的说明变了：will pull the centos:latest image, its intermediate layers and any aliases of the same id，也就是只会下载tag为latest的镜像（以及同一images id的其他tag）。
 也可以明确指定具体的镜像：
 
-# docker pull centos:centos6
+$ docker pull centos:centos6
 当然也可以从某个人的公共仓库（包括自己是私人仓库）拉取，形如docker pull username/repository<:tag_name> ：
 
-# docker pull seanlook/centos:centos6
+$ docker pull seanlook/centos:centos6
 如果你没有网络，或者从其他私服获取镜像，形如docker pull registry.domain.com:5000/repos:<tag_name>
 
-# docker pull dl.dockerpool.com:5000/mongo:latest
+$ docker pull dl.dockerpool.com:5000/mongo:latest
 4. 推送一个image或repository到registry（push）
 与上面的pull对应，可以推送到Docker Hub的Public、Private以及私服，但不能推送到Top Level Repository。
 
-# docker push seanlook/mongo
-# docker push registry.tp-link.net:5000/mongo:2014-10-27
+$ docker push seanlook/mongo
+$ docker push registry.tp-link.net:5000/mongo:2014-10-27
 registry.tp-link.NET也可以写成IP，172.29.88.222。
 在repository不存在的情况下，命令行下push上去的会为我们创建为私有库，然而通过浏览器创建的默认为公共库。
 
@@ -65,21 +65,21 @@ Usage: docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
 5.1 使用image创建container并执行相应命令，然后停止
 
-# docker run ubuntu echo "hello world"
+$ docker run ubuntu echo "hello world"
 hello word
 这是最简单的方式，跟在本地直接执行echo 'hello world' 几乎感觉不出任何区别，而实际上它会从本地ubuntu:latest镜像启动到一个容器，并执行打印命令后退出（docker ps -l可查看）。需要注意的是，默认有一个--rm=true参数，即完成操作后停止容器并从文件系统移除。因为Docker的容器实在太轻量级了，很多时候用户都是随时删除和新创建容器。
 容器启动后会自动随机生成一个CONTAINER ID，这个ID在后面commit命令后可以变为IMAGE ID
 
 使用image创建container并进入交互模式, login shell是/bin/bash
 
-# docker run -i -t --name mytest centos:centos6 /bin/bash
-bash-4.1#
+$ docker run -i -t --name mytest centos:centos6 /bin/bash
+bash-4.1$
 上面的--name参数可以指定启动后的容器名字，如果不指定则docker会帮我们取一个名字。镜像centos:centos6也可以用IMAGE ID (68edf809afe7) 代替），并且会启动一个伪终端，但通过ps或top命令我们却只能看到一两个进程，因为容器的核心是所执行的应用程序，所需要的资源都是应用程序运行所必需的，除此之外，并没有其它的资源，可见Docker对资源的利用率极高。此时使用exit或Ctrl+D退出后，这个容器也就消失了（消失后的容器并没有完全删除？）
 （那么多个TAG不同而IMAGE ID相同的的镜像究竟会运行以哪一个TAG启动呢
 
 5.2 运行出一个container放到后台运行
 
-# docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 2; done"
+$ docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 2; done"
 ae60c4b642058fefcc61ada85a610914bed9f5df0e2aa147100eab85cea785dc
 它将直接把启动的container挂起放在后台运行（这才叫saas），并且会输出一个CONTAINER ID，通过docker ps可以看到这个容器的信息，可在container外面查看它的输出docker logs ae60c4b64205，也可以通过docker attach ae60c4b64205连接到这个正在运行的终端，此时在Ctrl+C退出container就消失了，按ctrl-p ctrl-q可以退出到宿主机，而保持container仍然在运行
 另外，如果-d启动但后面的命令执行完就结束了，如/bin/bash、echo test，则container做完该做的时候依然会终止。而且-d不能与--rm同时使用
@@ -99,7 +99,7 @@ ae60c4b642058fefcc61ada85a610914bed9f5df0e2aa147100eab85cea785dc
 另外在两个container之间建立联系可用--link，详见高级部分或官方文档。
 下面是一个例子：
 
-# docker run --name nginx_test \
+$ docker run --name nginx_test \
 > -v /tmp/docker:/usr/share/nginx/html:ro \
 > -p 80:80 -d \
 > nginx:1.7.6
@@ -112,12 +112,12 @@ docker commit <container> [repo:tag]
 只能提交正在运行的container，即通过docker ps可以看见的容器，
 
 查看刚运行过的容器
-# docker ps -l
+$ docker ps -l
 CONTAINER ID   IMAGE     COMMAND      CREATED       STATUS        PORTS   NAMES
 c9fdf26326c9   nginx:1   nginx -g..   3 hours ago   Exited (0)..     nginx_test
 
 启动一个已存在的容器（run是从image新建容器后再启动），以下也可以使用docker start nginx_test代替  
-[root@hostname docker]# docker start c9fdf26326c9
+[root@hostname docker]$ docker start c9fdf26326c9
 c9fdf26326c9
 
 
@@ -125,7 +125,7 @@ docker run -i -t --sig-proxy=false 21ffe545748baf /bin/bash
 nginx服务没有启动
 
 
-# docker commit -m "some tools installed" fcbd0a5348ca seanlook/ubuntu:14.10_tutorial
+$ docker commit -m "some tools installed" fcbd0a5348ca seanlook/ubuntu:14.10_tutorial
 fe022762070b09866eaab47bc943ccb796e53f3f416abf3f2327481b446a9503
 -a "seanlook7@gmail.com"
 请注意，当你反复去commit一个容器的时候，每次都会得到一个新的IMAGE ID，假如后面的repository:tag没有变，通过docker images可以看到，之前提交的那份镜像的repository:tag就会变成<none>:<none>，所以尽量避免反复提交。
@@ -151,12 +151,12 @@ docker restart $CONTAINER_ID
 要attach上去的容器必须正在运行，可以同时连接上同一个container来共享屏幕（与screen命令的attach类似）。
 官方文档中说attach后可以通过CTRL-C来detach，但实际上经过我的测试，如果container当前在运行bash，CTRL-C自然是当前行的输入，没有退出；如果container当前正在前台运行进程，如输出nginx的access.log日志，CTRL-C不仅会导致退出容器，而且还stop了。这不是我们想要的，detach的意思按理应该是脱离容器终端，但容器依然运行。好在attach是可以带上--sig-proxy=false来确保CTRL-D或CTRL-C不会关闭容器。
 
-# docker attach --sig-proxy=false $CONTAINER_ID
+$ docker attach --sig-proxy=false $CONTAINER_ID
 3. 查看image或container的底层信息（inspect）
 inspect的对象可以是image、运行中的container和停止的container。
 
 查看容器的内部IP
-# docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER_ID
+$ docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER_ID
 172.17.42.35
 4. 删除一个或多个container、image（rm、rmi）
 你可能在使用过程中会build或commit许多镜像，无用的镜像需要删除。但删除这些镜像是有一些条件的：
@@ -176,32 +176,32 @@ docker rm $(docker ps -a -q)
 docker rmi <image_id/image_name ...>
 下面是一个完整的示例：
 
-# docker images            <==
+$ docker images            <==
 ubuntu            13.10        195eb90b5349       4 months ago       184.6 MB
 ubuntu            saucy        195eb90b5349       4 months ago       184.6 MB
 seanlook/ubuntu   rm_test      195eb90b5349       4 months ago       184.6 MB
 
 使用195eb90b5349启动、停止一个容器后，删除这个镜像
-# docker rmi 195eb90b5349
+$ docker rmi 195eb90b5349
 Error response from daemon: Conflict, cannot delete image 195eb90b5349 because it is 
 tagged in multiple repositories, use -f to force
 2014/11/04 14:19:00 Error: failed to remove one or more images
 
 删除seanlook仓库中的tag     <==
-# docker rmi seanlook/ubuntu:rm_test
+$ docker rmi seanlook/ubuntu:rm_test
 Untagged: seanlook/ubuntu:rm_test
 
 现在删除镜像，还会由于container的存在不能rmi
-# docker rmi 195eb90b5349
+$ docker rmi 195eb90b5349
 Error response from daemon: Conflict, cannot delete 195eb90b5349 because the 
  container eef3648a6e77 is using it, use -f to force
 2014/11/04 14:24:15 Error: failed to remove one or more images
 
 先删除由这个镜像启动的容器    <==
-# docker rm eef3648a6e77
+$ docker rm eef3648a6e77
 
 删除镜像                    <==
-# docker rmi 195eb90b5349
+$ docker rmi 195eb90b5349
 Deleted: 195eb90b534950d334188c3627f860fbdf898e224d8a0a11ec54ff453175e081
 Deleted: 209ea56fda6dc2fb013e4d1e40cb678b2af91d1b54a71529f7df0bd867adc961
 Deleted: 0f4aac48388f5d65a725ccf8e7caada42f136026c566528a5ee9b02467dac90a
@@ -216,12 +216,12 @@ docker build [OPTIONS] PATH | URL | -
 如果PATH直接就是一个单独的Dockerfile文件则可以不需要上下文；如果URL是一个Git仓库地址，那么创建image的过程中会自动git clone一份到本机的临时目录，它就成为了本次build的上下文。无论指定的PATH是什么，Dockerfile是至关重要的，请参考Dockerfile Reference。
 请看下面的例子：
 
-# cat Dockerfile 
+$ cat Dockerfile 
 FROM seanlook/nginx:bash_vim
 EXPOSE 80
 ENTRYPOINT /usr/sbin/nginx -c /etc/nginx/nginx.conf && /bin/bash
 
-# docker build -t seanlook/nginx:bash_vim_Df .
+$ docker build -t seanlook/nginx:bash_vim_Df .
 Sending build context to Docker daemon 73.45 MB
 Sending build context to Docker daemon 
 Step 0 : FROM seanlook/nginx:bash_vim
@@ -242,10 +242,10 @@ docker build github.com/creack/docker-firefox失败。
 tag的作用主要有两点：一是为镜像起一个容易理解的名字，二是可以通过docker tag来重新指定镜像的仓库，这样在push时自动提交到仓库。
 
 将同一IMAGE_ID的所有tag，合并为一个新的
-# docker tag 195eb90b5349 seanlook/ubuntu:rm_test
+$ docker tag 195eb90b5349 seanlook/ubuntu:rm_test
 
 新建一个tag，保留旧的那条记录
-# docker tag Registry/Repos:Tag New_Registry/New_Repos:New_Tag
+$ docker tag Registry/Repos:Tag New_Registry/New_Repos:New_Tag
 7. 查看容器的信息container（ps）
 docker ps命令可以查看容器的CONTAINER ID、NAME、IMAGE NAME、端口开启及绑定、容器启动后执行的COMMNAD。经常通过ps来找到CONTAINER_ID。
 docker ps 默认显示当前正在运行中的container
