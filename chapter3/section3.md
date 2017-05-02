@@ -74,7 +74,7 @@ CONTAINER ID   IMAGE     COMMAND      CREATED       STATUS        PORTS   NAMES 
 docker run -i -t --sig-proxy=false 21ffe545748baf /bin/bash   
 nginx服务没有启动           
 $ docker commit -m "some tools installed" fcbd0a5348ca seanlook/ubuntu:14.10\_tutorial    
-fe022762070b09866eaab47bc943ccb796e53f3f416abf3f2327481b446a9503    -a "seanlook7@gmail.com"    请注意，当你反复去commit一个容器的时候，每次都会得到一个新的IMAGE ID，假如后面的repository:tag没有变，通过docker images可以看到，之前提交的那份镜像的repository:tag就会变成<\none>:<\none>，所以尽量避免反复提交。    另外，观察以下几点:
+fe022762070b09866eaab47bc943ccb796e53f3f416abf3f2327481b446a9503    -a "seanlook7@gmail.com"    请注意，当你反复去commit一个容器的时候，每次都会得到一个新的IMAGE ID，假如后面的repository:tag没有变，通过docker images可以看到，之前提交的那份镜像的repository:tag就会变成none>:none>，所以尽量避免反复提交。    另外，观察以下几点:
 commit container只会pause住容器，这是为了保证容器文件系统的一致性，但不会stop。
 如果你要对这个容器继续做其他修改：        你可以重新提交得到新image2，删除次新的image1    也可以关闭容器用新image1启动，继续修改，提交image2后删除image1    当然这样会很痛苦，所以一般是采用Dockerfile来build得到最终image，参考\[\]    
 虽然产生了一个新的image，并且你可以看到大小有100MB，但从commit过程很快就可以知道实际上它并没有独立占用100MB的硬盘空间，而只是在旧镜像的基础上修改，它们共享大部分公共的“片”。下    
