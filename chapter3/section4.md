@@ -1,4 +1,4 @@
-#  Docker基本命令使用详解
+# Docker基本命令使用详解
 
 1. 运行容器
 
@@ -11,6 +11,12 @@ $docker run -i -t ubuntu /bin/bash
 ubuntu 表示我们创建容器使用的镜像
 
 /bin/bash 表示当容器创建完成之后，Docker就会执行容器中的/bin/bash命令
+
+2. 给容器命名
+
+$docker run --name my\_container  -i -t ubuntu /bin/bash
+
+--name为容器指定一个名称，使用指定的容器名称比使用容器ID更方便。
 
 
 
