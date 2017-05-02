@@ -86,7 +86,7 @@ on-failure：只有当容器的退出代码为非0值的时候才会自动重启
 
 \#根据容器标识删除容器
 
-$ sudo docker rm my\_container 
+$ sudo docker rm my\_container
 
 $ sudo docker rm f5a9f05f4214
 
@@ -101,4 +101,14 @@ $ sudo docker rm \`docker ps -a -q\`
 -a 标志代表列出所有容器，包括运行的和已经停止的
 
 -q 标志表示只需要返回容器的ID而不会返回容器的其他信息
+
+9.查看容器信息
+
+\#查看容器信息
+
+$ sudo docker ps
+
+\#通过docker inspect来获得更详细的容器信息
+
+$ sudo docker inspect my\_container
 
