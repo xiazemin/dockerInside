@@ -57,7 +57,7 @@ $ sudo docker run -i -t --entrypoint /bin/bash example/redis -c ls -l
 $ sudo docker run -i -t --entrypoint /usr/bin/redis-cli example/redis --help
 EXPOSE \(incoming ports\)
 Dockefile在网络方面除了提供一个EXPOSE之外，没有提供其它选项。下面这些参数可以覆盖Dockefile的expose默认值：
---expose=\[\]: Expose a port or a range of ports from the container
+--expose=  Expose a port or a range of ports from the container
 without publishing it to your host
 -P=false   : Publish all exposed ports to the host interfaces
 -p=\[\]      : Publish a container᾿s port to the host \(format:
