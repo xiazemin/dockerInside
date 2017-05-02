@@ -54,3 +54,19 @@ $ sudo docker exec -d my\_container touch /etc/new\_config\_file
 
 $ sudo docker exec -t -i my\_container /bin/bash
 
+6.停止守护式容器
+
+\#通过容器名称停止正在运行的容器
+
+$ sudo docker stop my\_container
+
+\#通过容器ID停止正在运行的容器
+
+$ sudo docker stop f5a9f05f4214
+
+\#停止容器进程
+
+$ sudo docker kill f5a9f05f4214
+
+如果想快速停止某个容器，使用\`docker kill\`命令在向容器发送停止信号。 
+
