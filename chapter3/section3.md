@@ -86,9 +86,5 @@ commit container只会pause住容器，这是为了保证容器文件系统的�
 2\)连接到正在运行中的container (attach）    要attach上去的容器必须正在运行，可以同时连接上同一个container来共享屏幕 (与screen命令的attach类似）。    官方文档中说attach后可以通过CTRL-C来detach，但实际上经过我的测试，如果container当前在运行bash，CTRL-C自然是当前行的输入，没有退出；如果container当前正在前台运行进程，如输出nginx的access.log日志，CTRL-C不仅会导致退出容器，而且还stop了。这不是我们想要的，detach的意思按理应该是脱离容器终端，但容器依然运行。好在attach是可以带上--sig-proxy=false来确保CTRL-D或CTRL-C不会关闭容器。        
 $ docker attach --sig-proxy=false $CONTAINER\_ID    
 
-3\)查看image或container的底层信息 (inspect）    inspect的对象可以是image、运行中的container和停止的container。        
-查看容器的内部IP    
-$ docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER\_ID    172.17.42.35   
-
-注意，上面的删除过程我所举的例子比较特殊——镜像被tag在多个仓库，也有启动过的容器。按照<==指示的顺序进行即可。        
+       
 
