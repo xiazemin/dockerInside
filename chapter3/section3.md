@@ -32,8 +32,6 @@ REPOSITORY               TAG             IMAGE ID        CREATED         VIRTUAL
 
 ubuntu                   14.10           2185fd50e2ca    13 days ago     236.9 MB
 
-…
-
 其中我们可以根据REPOSITORY来判断这个镜像是来自哪个服务器，如果没有 / 则表示官方镜像，类似于username/repos\_name表示Github的个人公共库，类似于regsistory.example.com:5000/repos\_name则表示的是私服。
 
 IMAGE ID列其实是缩写，要显示完整则带上--no-trunc选项
