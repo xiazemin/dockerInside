@@ -76,18 +76,18 @@ commit container只会pause住容器，这是为了保证容器文件系统的�
 如果你要对这个容器继续做其他修改：        你可以重新提交得到新image2，删除次新的image1    也可以关闭容器用新image1启动，继续修改，提交image2后删除image1    当然这样会很痛苦，所以一般是采用Dockerfile来build得到最终image，参考\[\]    
 虽然产生了一个新的image，并且你可以看到大小有100MB，但从commit过程很快就可以知道实际上它并没有独立占用100MB的硬盘空间，而只是在旧镜像的基础上修改，它们共享大部分公共的“片”。下    
 
-1. 开启/停止/重启container（start/stop/restart）   
+1)开启/停止/重启container（start/stop/restart）   
 容器可以通过run新建一个来运行，也可以重新start已经停止的container，但start不能够再指定容器启动时运行的指令，因为docker只能有一个前台进程。   
 容器stop（或Ctrl+D）时，会在保存当前容器的状态之后退出，下次start时保有上次关闭时更改。而且每次进入attach进去的界面是一样的，与第一次run启动或commit提交的时刻相同。        CONTAINER\_ID=$\(docker start <containner\_id>\)    docker stop $CONTAINER\_ID    docker restart $CONTAINER\_ID    关于这几个命令可以通过一个完整的实例使用：docker如何创建一个运行后台进程的容器并同时提供shell终端。        
 
-2. 连接到正在运行中的container（attach）    要attach上去的容器必须正在运行，可以同时连接上同一个container来共享屏幕（与screen命令的attach类似）。    官方文档中说attach后可以通过CTRL-C来detach，但实际上经过我的测试，如果container当前在运行bash，CTRL-C自然是当前行的输入，没有退出；如果container当前正在前台运行进程，如输出nginx的access.log日志，CTRL-C不仅会导致退出容器，而且还stop了。这不是我们想要的，detach的意思按理应该是脱离容器终端，但容器依然运行。好在attach是可以带上--sig-proxy=false来确保CTRL-D或CTRL-C不会关闭容器。        
+2)连接到正在运行中的container（attach）    要attach上去的容器必须正在运行，可以同时连接上同一个container来共享屏幕（与screen命令的attach类似）。    官方文档中说attach后可以通过CTRL-C来detach，但实际上经过我的测试，如果container当前在运行bash，CTRL-C自然是当前行的输入，没有退出；如果container当前正在前台运行进程，如输出nginx的access.log日志，CTRL-C不仅会导致退出容器，而且还stop了。这不是我们想要的，detach的意思按理应该是脱离容器终端，但容器依然运行。好在attach是可以带上--sig-proxy=false来确保CTRL-D或CTRL-C不会关闭容器。        
 $ docker attach --sig-proxy=false $CONTAINER\_ID    
 
-3. 查看image或container的底层信息（inspect）    inspect的对象可以是image、运行中的container和停止的container。        
+3)查看image或container的底层信息（inspect）    inspect的对象可以是image、运行中的container和停止的container。        
 查看容器的内部IP    
 $ docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER\_ID    172.17.42.35   
 
-4 删除一个或多个container、image（rm、rmi）    你可能在使用过程中会build或commit许多镜像，无用的镜像需要删除。但删除这些镜像是有一些条件的：        同一个IMAGE ID可能会有多个TAG（可能还在不同的仓库），首先你要根据这些 image names 来删除标签，当删除最后一个tag的时候就会自动删除镜像；    承上，如果要删除的多个IMAGE NAME在同一个REPOSITORY，可以通过docker rmi <image\_id>来同时删除剩下的TAG；若在不同Repo则还是需要手动逐个删除TAG；    还存在由这个镜像启动的container时（即便已经停止），也无法删除镜像；    TO-DO    如何查看镜像与容器的依存关系       
+4)删除一个或多个container、image（rm、rmi）    你可能在使用过程中会build或commit许多镜像，无用的镜像需要删除。但删除这些镜像是有一些条件的：        同一个IMAGE ID可能会有多个TAG（可能还在不同的仓库），首先你要根据这些 image names 来删除标签，当删除最后一个tag的时候就会自动删除镜像；    承上，如果要删除的多个IMAGE NAME在同一个REPOSITORY，可以通过docker rmi <image\_id>来同时删除剩下的TAG；若在不同Repo则还是需要手动逐个删除TAG；    还存在由这个镜像启动的container时（即便已经停止），也无法删除镜像；    TO-DO    如何查看镜像与容器的依存关系       
 删除容器    
 docker rm <container\_id/contaner\_name>       
 删除所有停止的容器    docker rm $\(docker ps -a -q\)   
@@ -99,7 +99,7 @@ $ docker rmi 195eb90b5349    Error response from daemon: Conflict, cannot delete
 $ docker rmi 195eb90b5349    Error response from daemon: Conflict, cannot delete 195eb90b5349 because the      container eef3648a6e77 is using it, use -f to force    2014/11/04 14:24:15 Error: failed to remove one or more images        先删除由这个镜像启动的容器    <==    $ docker rm eef3648a6e77        删除镜像                    <==    
 $ docker rmi 195eb90b5349    Deleted: 195eb90b534950d334188c3627f860fbdf898e224d8a0a11ec54ff453175e081    Deleted: 209ea56fda6dc2fb013e4d1e40cb678b2af91d1b54a71529f7df0bd867adc961    Deleted: 0f4aac48388f5d65a725ccf8e7caada42f136026c566528a5ee9b02467dac90a    Deleted: fae16849ebe23b48f2bedcc08aaabd45408c62b531ffd8d3088592043d5e7364    Deleted: f127542f0b6191e99bb015b672f5cf48fa79d974784ac8090b11aeac184eaaff    注意，上面的删除过程我所举的例子比较特殊——镜像被tag在多个仓库，也有启动过的容器。按照<==指示的顺序进行即可。        
 
-5. docker build 使用此配置生成新的image    
+5)docker build 使用此配置生成新的image    
 build命令可以从Dockerfile和上下文来创建镜像：   
 docker build \[OPTIONS\] PATH \| URL \| -    上面的PATH或URL中的文件被称作上下文，build image的过程会先把这些文件传送到docker的服务端来进行的。    如果PATH直接就是一个单独的Dockerfile文件则可以不需要上下文；如果URL是一个Git仓库地址，那么创建image的过程中会自动git clone一份到本机的临时目录，它就成为了本次build的上下文。无论指定的PATH是什么，Dockerfile是至关重要的，请参考Dockerfile Reference。    请看下面的例子：      
 $ cat Dockerfile     
