@@ -68,5 +68,17 @@ $ sudo docker stop f5a9f05f4214
 
 $ sudo docker kill f5a9f05f4214
 
-如果想快速停止某个容器，使用\`docker kill\`命令在向容器发送停止信号。 
+如果想快速停止某个容器，使用\`docker kill\`命令在向容器发送停止信号。
+
+7.自动重启容器
+
+$ sudo docker run --restart=always --name my\_container -d ubuntu /bin/bash
+
+--restart 标志会检查容器的退出代码，并据此来决定是否要重启容器，默认是不会重启。
+
+--restart的参数说明
+
+always：无论容器的退出代码是什么，Docker都会自动重启该容器。
+
+on-failure：只有当容器的退出代码为非0值的时候才会自动重启。另外，该参数还接受一个可选的重启次数参数，\`--restart=on-fialure:5\`表示当容器退出代码为非0时，Docker会尝试自动重启该容器，最多5次。
 
