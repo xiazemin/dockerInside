@@ -55,7 +55,7 @@ $ docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 2; don
 -p 127.0.0.1::5000    
 -p 127.0.0.1:80:8080    
 目录映射其实是“绑定挂载”host的路径到container的目录，这对于内外传送文件比较方便，在搭建私服那一节，为了避免私服container停止以后保存的images不被删除，就要把提交的images保存到挂载的主机目录下。使用比较简单，
--v <\host\_path:container\_path>，绑定多个目录时再加-v。       
+-v host\_path:container\_path，绑定多个目录时再加-v。       
 -v /tmp/docker:/tmp/docker    另外在两个container之间建立联系可用--link，详见高级部分或官方文档。    下面是一个例子：        
 $ docker run --name nginx\_test \    
 ~ -v /tmp/docker:/usr/share/nginx/html:ro \   
