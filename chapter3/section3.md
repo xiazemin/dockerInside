@@ -49,7 +49,7 @@ $ docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 2; don
 可以通过这种方式来运行memcached、apache等。        
 
 5.3 映射host到container的端口和目录        映射主机到容器的端口是很有用的，比如在container中运行memcached，端口为11211，运行容器的host可以连接container的 internel\_ip:11211 访问，如果有从其他主机访问memcached需求那就可以通过-p选项，形如
--p <\host\_port:contain\_port>，存在以下几种写法：       
+-p host\_port:contain\_port，存在以下几种写法：       
 -p 11211:11211 这个即是默认情况下，绑定主机所有网卡 (0.0.0.0）的11211端口到容器的11211端口上   
 -p 127.0.0.1:11211:11211 只绑定localhost这个接口的11211端口    
 -p 127.0.0.1::5000    
