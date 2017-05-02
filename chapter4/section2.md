@@ -166,5 +166,13 @@ Digest: sha256:2a66586181b8ffc169035e8462614ab48836bd578de51f2233fd20c86e7408cb
 
 Status: Downloaded newer image for hub.c.163.com/library/swarm:latest
 
+$ docker pull hub.c.163.com/library/alpine:latest
 
+latest: Pulling from library/alpine
+
+627beaf3eaaf: Already exists
+
+Digest: sha256:bcecccf75c1ac6365cf1105bfaf8cf4ce4e448a422ec1bb34b4bf5e4202905ff
+
+Status: Downloaded newer image for hub.c.163.com/library/alpine:latest
 
