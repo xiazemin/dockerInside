@@ -20,5 +20,13 @@ $docker run --name my\_container  -i -t ubuntu /bin/bash
 
 3.重新启动已停止的容器
 
+\#使用容器ID启动容器
 
+$docker start f5a9f05f4214
+
+\#使用容器名称启动容器
+
+$ docker start my\_container
+
+$ docker restart my\_container
 
