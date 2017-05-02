@@ -85,6 +85,10 @@ commit container只会pause住容器，这是为了保证容器文件系统的�
 
 2\)连接到正在运行中的container (attach）    要attach上去的容器必须正在运行，可以同时连接上同一个container来共享屏幕 (与screen命令的attach类似）。    官方文档中说attach后可以通过CTRL-C来detach，但实际上经过我的测试，如果container当前在运行bash，CTRL-C自然是当前行的输入，没有退出；如果container当前正在前台运行进程，如输出nginx的access.log日志，CTRL-C不仅会导致退出容器，而且还stop了。这不是我们想要的，detach的意思按理应该是脱离容器终端，但容器依然运行。好在attach是可以带上--sig-proxy=false来确保CTRL-D或CTRL-C不会关闭容器。        
 $ docker attach --sig-proxy=false $CONTAINER\_ID    
+3\)查看image或container的底层信息 (inspect）    
+inspect的对象可以是image、运行中的container和停止的container。    
+查看容器的内部IP    
+$ docker inspect --format='\{\{NetworkSettings.IPAddress\}\}' $CONTAINER\_ID    172.17.42.35   
 
 4\)删除一个或多个container、image (rm、rmi）    你可能在使用过程中会build或commit许多镜像，无用的镜像需要删除。但删除这些镜像是有一些条件的：        同一个IMAGE ID可能会有多个TAG (可能还在不同的仓库），首先你要根据这些 image names 来删除标签，当删除最后一个tag的时候就会自动删除镜像；    承上，如果要删除的多个IMAGE NAME在同一个REPOSITORY，可以通过docker rmi image\_id>来同时删除剩下的TAG；若在不同Repo则还是需要手动逐个删除TAG；    还存在由这个镜像启动的container时 (即便已经停止），也无法删除镜像；    TO-DO    如何查看镜像与容器的依存关系       
 删除容器    
