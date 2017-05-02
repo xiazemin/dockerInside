@@ -36,8 +36,7 @@ docker exec -it containerId /bin/sh
 这种方式可以替代ssh或者nsenter、nsinit方式，在容器内进行操作。
 
 docker inspect
-docker inspect -f {{.IPAddress}} 来获取容器的 IP 地址 “.” 表示“当前上下文”。
-更多请参见http://www.tuicool.com/articles/V3AvI3I
+docker inspect -f IPAddress}} 来获取容器的 IP 地址 “.” 表示“当前上下文”。
 
 docker run相关参数
 Clean up \(--rm\)
@@ -74,5 +73,3 @@ hostPort:containerPort \| containerPort\)
 当你使用--link方式时，作为客户端的container可以通过私有网络形式访问到这个container。同时Docker会在客户端的container中设定一些环境变量来记录绑定的IP和PORT。
 WORKDIR
 container中默认的工作目录是根目录\(/\)。开发人员可以通过Dockerfile的WORKDIR来设定默认工作目录，操作人员可以通过"-w"来覆盖默认的工作目录。
-更多请参考http://www.tuicool.com/articles/uUBVJr
-可见,以上参数在dockerfile有相关对应.
