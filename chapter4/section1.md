@@ -74,3 +74,51 @@ time="2017-05-02T10:53:13Z" level=warning msg="Error creating connection: goreth
 
 time="2017-05-02T10:53:13Z" level=fatal msg="no connections were made when creating the session"
 
+$ docker pull hub.c.163.com/lixiaoming/rethinkdb:latest
+
+latest: Pulling from lixiaoming/rethinkdb
+
+bbe5368a0432: Pull complete
+
+98ff17f2ae39: Pull complete
+
+b2c6d7e5c802: Pull complete
+
+577d9278897e: Pull complete
+
+a3ed95caeb02: Pull complete
+
+c511d384be8e: Pull complete
+
+581e1a19cdf3: Pull complete
+
+Digest: sha256:01b49fb895a162d1311bff7a63916af2932c89ebcb48ce8daa051021dfdf383a
+
+Status: Downloaded newer image for hub.c.163.com/lixiaoming/rethinkdb:latest
+
+$ docker run -it -d --name shipyard-rethinkdb-data --entrypoint /bin/bash hub.c.163.com/lixiaoming/rethinkdb -l
+
+f6c7a7e71886eb512c526d22bf09e8468ce61e903c6ab75d8858045de0846e1a
+
+bogon:docker didi$ docker run -it -P -d --name shipyard-rethinkdb --volumes-from shipyard-rethinkdb-data  hub.c.163.com/lixiaoming/rethinkdb
+
+6ef526a30ef53817588099f3af88f64d9084ccd8f63b120f620624dd2cefa50a
+
+bogon:docker didi$ docker run -it -p 8080:8080 -d --name shipyard --link shipyard-rethinkdb:rethinkdb hub.c.163.com/longjuxu/shipyard/shipyard
+
+b2cc621c53ec593e01c5b9076c5519778ca3f17e64929b763e6a1380836e6c7b
+
+docker: Error response from daemon: driver failed programming external connectivity on endpoint shipyard \(47fa1b0042f2857d9873117ed82fdb405db8a3b5d45d73ca2e2a5cb80bed4a57\): Error starting userland proxy: Bind for 0.0.0.0:8080 failed: port is already allocated.
+
+bogon:docker didi$ docker run -it -p 8089:8089 -d --name shipyard --link shipyard-rethinkdb:rethinkdb hub.c.163.com/longjuxu/shipyard/shipyard
+
+docker: Error response from daemon: Conflict. The container name "/shipyard" is already in use by container b2cc621c53ec593e01c5b9076c5519778ca3f17e64929b763e6a1380836e6c7b. You have to remove \(or rename\) that container to be able to reuse that name..
+
+See 'docker run --help'.
+
+bogon:docker didi$ docker run -it -p 8089:8089 -d --name shipyard1 --link shipyard-rethinkdb:rethinkdb hub.c.163.com/longjuxu/shipyard/shipyard
+
+d1a269ed556d8a25b7cb78cc3284775940fc9fb84cfaa520bc41fbc3a0786b20
+
+bogon:docker didi$
+
