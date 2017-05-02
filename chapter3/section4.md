@@ -30,3 +30,7 @@ $ docker start my\_container
 
 $ docker restart my\_container
 
+除了容器ID，我们还可以使用容器名称来运行容器，也可以用\`docker restart\`命令来重新启动一个容器，运行以上命令，使用\`docker ps\`就可以看到我们的容器已经开始运行了。
+
+
+
