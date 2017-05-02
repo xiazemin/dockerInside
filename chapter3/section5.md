@@ -38,7 +38,7 @@ $ sudo docker load --input ubuntu\_14.04.tar
 
 
 
-$ sudo docker load &lt; ubuntu\_14.04.tar
+$ sudo docker load ubuntu\_14.04.tar
 
 
 
