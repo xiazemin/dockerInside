@@ -14,7 +14,7 @@
 
 其他命令 — docker \[info\|version\]
 
-\1. 列出机器上的镜像（images）
+1 列出机器上的镜像（images）
 
 $ docker images 
 
