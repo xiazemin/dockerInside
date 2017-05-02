@@ -36,14 +36,9 @@ $ docker pull dl.dockerpool.com:5000/mongo:latest
 4. 推送一个image或repository到registry（push）
 与上面的pull对应，可以推送到Docker Hub的Public、Private以及私服，但不能推送到Top Level Repository。
 $ docker push seanlook/mongo
-
 $ docker push registry.tp-link.net:5000/mongo:2014-10-27
-
 registry.tp-link.NET也可以写成IP，172.29.88.222。
-
 在repository不存在的情况下，命令行下push上去的会为我们创建为私有库，然而通过浏览器创建的默认为公共库。
-
-
 
 5. 从image启动一个container（run）
 
