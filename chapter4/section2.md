@@ -12,7 +12,7 @@ Shipyard 主页中有 Shipyard 简单介绍，在 部署 这节中有我们需�
 
 先进入手动安装页面，找出并拉取需要的 images
 
-\# 这里使用 \[daocloud\]\([https://www.daocloud.io/\](https://www.daocloud.io/\)\) 的 docker hub缓存服务
+\# 这里使用 \[daocloud\]\([https://www.daocloud.io/\](https://www.daocloud.io/%29\) 的 docker hub缓存服务
 
 $ dao pull rethinkdb
 
@@ -121,4 +121,50 @@ $ export ACTION=node DISCOVERY=etcd://121.42.29.28:4001 && bash docker.sh       
 好了打开你的 Shipyard 中 NODES 的面板你是不是发现了两个主机
 
 OK 结束了
+
+$ docker pull hub.c.163.com/longjuxu/microbox/etcd:latest
+
+latest: Pulling from longjuxu/microbox/etcd
+
+91cf967c92a1: Pull complete
+
+dd0f67c1ce91: Pull complete
+
+a3ed95caeb02: Pull complete
+
+Digest: sha256:8a67dae94a5b6f4d01afa5f5b58351ba6bc7957453e2dca7c58f8321b39f64e4
+
+Status: Downloaded newer image for hub.c.163.com/longjuxu/microbox/etcd:latest
+
+bogon:docker didi$ docker pull hub.c.163.com/longjuxu/shipyard/docker-proxy:latest
+
+latest: Pulling from longjuxu/shipyard/docker-proxy
+
+5e5d3fced291: Pull complete
+
+e9cd69e8cfb3: Pull complete
+
+17a927d6b5e5: Pull complete
+
+a3ed95caeb02: Pull complete
+
+Digest: sha256:3123ef34fbd4fb51f10bd617400be7166cd9a3dcac1b7556190e0231475ca9ae
+
+Status: Downloaded newer image for hub.c.163.com/longjuxu/shipyard/docker-proxy:latest
+
+bogon:docker didi$ docker pull hub.c.163.com/library/swarm:latest
+
+latest: Pulling from library/swarm
+
+ebe0176dcf9a: Pull complete
+
+19f771faa982: Pull complete
+
+902eeedf931a: Pull complete
+
+Digest: sha256:2a66586181b8ffc169035e8462614ab48836bd578de51f2233fd20c86e7408cb
+
+Status: Downloaded newer image for hub.c.163.com/library/swarm:latest
+
+bogon:docker didi$
 
