@@ -136,7 +136,7 @@ Digest: sha256:8a67dae94a5b6f4d01afa5f5b58351ba6bc7957453e2dca7c58f8321b39f64e4
 
 Status: Downloaded newer image for hub.c.163.com/longjuxu/microbox/etcd:latest
 
-bogon:docker didi$ docker pull hub.c.163.com/longjuxu/shipyard/docker-proxy:latest
+$ docker pull hub.c.163.com/longjuxu/shipyard/docker-proxy:latest
 
 latest: Pulling from longjuxu/shipyard/docker-proxy
 
@@ -152,7 +152,7 @@ Digest: sha256:3123ef34fbd4fb51f10bd617400be7166cd9a3dcac1b7556190e0231475ca9ae
 
 Status: Downloaded newer image for hub.c.163.com/longjuxu/shipyard/docker-proxy:latest
 
-bogon:docker didi$ docker pull hub.c.163.com/library/swarm:latest
+$ docker pull hub.c.163.com/library/swarm:latest
 
 latest: Pulling from library/swarm
 
@@ -166,5 +166,5 @@ Digest: sha256:2a66586181b8ffc169035e8462614ab48836bd578de51f2233fd20c86e7408cb
 
 Status: Downloaded newer image for hub.c.163.com/library/swarm:latest
 
-bogon:docker didi$
+
 
