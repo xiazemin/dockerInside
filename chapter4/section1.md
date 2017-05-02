@@ -42,12 +42,6 @@ DockerUI基于Docker API，提供等同Docker命令行的大部分功能，支�
 
 不支持多主机。
 
-dockerui-dashboard.png
-
-dockerui-containers.png
-
-dockerui-images.png
-
 Shipyard
 
 Shipyard也是完全基于Docker API，支持container管理、engine管理（一个engine就是监听tcp端口的docker daemon）。
@@ -70,13 +64,7 @@ Shipyard也是完全基于Docker API，支持container管理、engine管理（�
 
 不支持container批量操作。
 
-shipyard-dashboard.png
+docker pull hub.c.163.com/longjuxu/shipyard/shipyard:latest
 
-shipyard-containers.png
 
-shipyard-container.png
-
-shipyard-engines.png
-
-shipyard-engine.png
 
