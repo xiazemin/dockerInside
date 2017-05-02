@@ -36,5 +36,7 @@ $ docker restart my\_container
 
 $docker attach my\_container
 
+Docker容器重新启动的时候，会沿用\`docker run\`命令时制定的参数来运行，因此我们的容器重新启动后会运行一个交互式的shell，此外可以用\`docker attach\`命令重新附着到该容器的会话上。
 
+运行命令之后可以需要按下回车键才能进入该会话，如果退出容器的shell，容器会再次停止运行。
 
