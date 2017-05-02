@@ -11,12 +11,12 @@
 $ docker images   
 REPOSITORY               TAG             IMAGE ID        CREATED         VIRTUAL SIZE  ubuntu                   14.10           2185fd50e2ca    13 days ago     236.9 MB  其中我们可以根据REPOSITORY来判断这个镜像是来自哪个服务器，如果没有 / 则表示官方镜像，类似于username/repos\_name表示Github的个人公共库，类似于regsistory.example.com:5000/repos\_name则表示的是私服。  IMAGE ID列其实是缩写，要显示完整则带上--no-trunc选项    
 
-2. 在docker index中搜索image（search）  
+2 在docker index中搜索image（search）  
 Usage: docker search TERM  
 $ docker search seanlo  NAME                
 DESCRIPTION           STARS     OFFICIAL   AUTOMATED  seanloook/centos6   sean's docker repos         0  搜索的范围是官方镜像和所有个人公共镜像。NAME列的 / 后面是仓库的名字。    
 
-3. 从docker registry server 中下拉image或repository（pull）  
+3 从docker registry server 中下拉image或repository（pull）  
 Usage: docker pull \[OPTIONS\] NAME\[:TAG\]  
 $ docker pull centos  
 上面的命令需要注意，在docker v1.2版本以前，会下载官方镜像的centos仓库里的所有镜像，而从v.13开始官方文档里的说明变了：will pull the centos:latest image, its intermediate layers and any aliases of the same id，也就是只会下载tag为latest的镜像（以及同一images id的其他tag）。  也可以明确指定具体的镜像：  
@@ -25,12 +25,12 @@ $ docker pull seanlook/centos:centos6  如果你没有网络，或者从其他�
 docker pull registry.domain.com:5000/repos:<tag\_name>  
 $ docker pull dl.dockerpool.com:5000/mongo:latest    
 
-4. 推送一个image或repository到registry（push）  
+4 推送一个image或repository到registry（push）  
 与上面的pull对应，可以推送到Docker Hub的Public、Private以及私服，但不能推送到Top Level Repository。  
 $ docker push seanlook/mongo 
 $ docker push registry.tp-link.net:5000/mongo:2014-10-27  registry.tp-link.NET也可以写成IP，172.29.88.222。  在repository不存在的情况下，命令行下push上去的会为我们创建为私有库，然而通过浏览器创建的默认为公共库。    
 
-5. 从image启动一个container（run）    
+5 从image启动一个container（run）    
 docker run命令首先会从特定的image创之上create一层可写的Container，然后通过start命令来启动它。停止的container可以重新启动并保留原来的修改。run命令启动参数有很多，以下是一些常规使用说明，更多部分请参考http://www.cnphp6.com/archives/24899    当利用 docker run 来创建容器时，Docker 在后台运行的标准操作包括：        检查本地是否存在指定的镜像，不存在就从公有仓库下载    利用镜像创建并启动一个容器    分配一个文件系统，并在只读的镜像层外面挂载一层可读写层    从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去    从地址池配置一个 ip 地址给容器    执行用户指定的应用程序    执行完毕后容器被终止    
 Usage: docker run \[OPTIONS\] IMAGE \[COMMAND\] \[ARG...\]        
 
@@ -60,7 +60,7 @@ $ docker run --name nginx\_test \
 > nginx:1.7.6    
 在主机的/tmp/docker下建立index.html，就可以通过http://localhost:80/或http://host-ip:80访问了。        
 
-6. 将一个container固化为一个新的image（commit）    
+6 将一个container固化为一个新的image（commit）    
 当我们在制作自己的镜像的时候，会在container中安装一些工具、修改配置，如果不做commit保存起来，那么container停止以后再启动，这些更改就消失了。    
 docker commit <container> \[repo:tag\]    后面的repo:tag可选    
 只能提交正在运行的container，即通过docker ps可以看见的容器，        查看刚运行过的容器    
@@ -87,45 +87,46 @@ commit container只会pause住容器，这是为了保证容器文件系统的�
  查看容器的内部IP    
  $ docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER\_ID    172.17.42.35   
 
-  4. 删除一个或多个container、image（rm、rmi）    你可能在使用过程中会build或commit许多镜像，无用的镜像需要删除。但删除这些镜像是有一些条件的：        同一个IMAGE ID可能会有多个TAG（可能还在不同的仓库），首先你要根据这些 image names 来删除标签，当删除最后一个tag的时候就会自动删除镜像；    承上，如果要删除的多个IMAGE NAME在同一个REPOSITORY，可以通过docker rmi <image\_id>来同时删除剩下的TAG；若在不同Repo则还是需要手动逐个删除TAG；    还存在由这个镜像启动的container时（即便已经停止），也无法删除镜像；    TO-DO    如何查看镜像与容器的依存关系       
-   删除容器    
-  docker rm <container\_id/contaner\_name>       
-   删除所有停止的容器    docker rm $\(docker ps -a -q\)   
-    删除镜像    docker rmi <image\_id/image\_name ...>    
-    下面是一个完整的示例：       
-     $ docker images            <==    ubuntu            13.10        195eb90b5349       4 months ago       184.6 MB    ubuntu            saucy        195eb90b5349       4 months ago       184.6 MB    seanlook/ubuntu   rm\_test      195eb90b5349       4 months ago       184.6 MB        使用195eb90b5349启动、停止一个容器后，删除这个镜像   
-      $ docker rmi 195eb90b5349    Error response from daemon: Conflict, cannot delete image 195eb90b5349 because it is     tagged in multiple repositories, use -f to force    2014/11/04 14:19:00 Error: failed to remove one or more images        删除seanlook仓库中的tag     <==    $ docker rmi seanlook/ubuntu:rm\_test    Untagged: seanlook/ubuntu:rm\_test        现在删除镜像，还会由于container的存在不能rmi    
+4 删除一个或多个container、image（rm、rmi）    你可能在使用过程中会build或commit许多镜像，无用的镜像需要删除。但删除这些镜像是有一些条件的：        同一个IMAGE ID可能会有多个TAG（可能还在不同的仓库），首先你要根据这些 image names 来删除标签，当删除最后一个tag的时候就会自动删除镜像；    承上，如果要删除的多个IMAGE NAME在同一个REPOSITORY，可以通过docker rmi <image\_id>来同时删除剩下的TAG；若在不同Repo则还是需要手动逐个删除TAG；    还存在由这个镜像启动的container时（即便已经停止），也无法删除镜像；    TO-DO    如何查看镜像与容器的依存关系       
+删除容器    
+docker rm <container\_id/contaner\_name>       
+删除所有停止的容器    docker rm $\(docker ps -a -q\)   
+删除镜像    docker rmi <image\_id/image\_name ...>    
+下面是一个完整的示例：       
+$ docker images            <==    ubuntu            13.10        195eb90b5349       4 months ago       184.6 MB    ubuntu            saucy        195eb90b5349       4 months ago       184.6 MB    seanlook/ubuntu   rm\_test      195eb90b5349       4 months ago       184.6 MB        使用195eb90b5349启动、停止一个容器后，删除这个镜像   
+$ docker rmi 195eb90b5349    Error response from daemon: Conflict, cannot delete image 195eb90b5349 because it is     tagged in multiple repositories, use -f to force    2014/11/04 14:19:00 Error: failed to remove one or more images        删除seanlook仓库中的tag     <==    $ docker rmi seanlook/ubuntu:rm\_test    Untagged: seanlook/ubuntu:rm\_test        现在删除镜像，还会由于container的存在不能rmi    
 
-      $ docker rmi 195eb90b5349    Error response from daemon: Conflict, cannot delete 195eb90b5349 because the      container eef3648a6e77 is using it, use -f to force    2014/11/04 14:24:15 Error: failed to remove one or more images        先删除由这个镜像启动的容器    <==    $ docker rm eef3648a6e77        删除镜像                    <==    
-      $ docker rmi 195eb90b5349    Deleted: 195eb90b534950d334188c3627f860fbdf898e224d8a0a11ec54ff453175e081    Deleted: 209ea56fda6dc2fb013e4d1e40cb678b2af91d1b54a71529f7df0bd867adc961    Deleted: 0f4aac48388f5d65a725ccf8e7caada42f136026c566528a5ee9b02467dac90a    Deleted: fae16849ebe23b48f2bedcc08aaabd45408c62b531ffd8d3088592043d5e7364    Deleted: f127542f0b6191e99bb015b672f5cf48fa79d974784ac8090b11aeac184eaaff    注意，上面的删除过程我所举的例子比较特殊——镜像被tag在多个仓库，也有启动过的容器。按照<==指示的顺序进行即可。        
+$ docker rmi 195eb90b5349    Error response from daemon: Conflict, cannot delete 195eb90b5349 because the      container eef3648a6e77 is using it, use -f to force    2014/11/04 14:24:15 Error: failed to remove one or more images        先删除由这个镜像启动的容器    <==    $ docker rm eef3648a6e77        删除镜像                    <==    
+$ docker rmi 195eb90b5349    Deleted: 195eb90b534950d334188c3627f860fbdf898e224d8a0a11ec54ff453175e081    Deleted: 209ea56fda6dc2fb013e4d1e40cb678b2af91d1b54a71529f7df0bd867adc961    Deleted: 0f4aac48388f5d65a725ccf8e7caada42f136026c566528a5ee9b02467dac90a    Deleted: fae16849ebe23b48f2bedcc08aaabd45408c62b531ffd8d3088592043d5e7364    Deleted: f127542f0b6191e99bb015b672f5cf48fa79d974784ac8090b11aeac184eaaff    注意，上面的删除过程我所举的例子比较特殊——镜像被tag在多个仓库，也有启动过的容器。按照<==指示的顺序进行即可。        
 
-      5. docker build 使用此配置生成新的image    
-      build命令可以从Dockerfile和上下文来创建镜像：   
-       docker build \[OPTIONS\] PATH \| URL \| -    上面的PATH或URL中的文件被称作上下文，build image的过程会先把这些文件传送到docker的服务端来进行的。    如果PATH直接就是一个单独的Dockerfile文件则可以不需要上下文；如果URL是一个Git仓库地址，那么创建image的过程中会自动git clone一份到本机的临时目录，它就成为了本次build的上下文。无论指定的PATH是什么，Dockerfile是至关重要的，请参考Dockerfile Reference。    请看下面的例子：      
-         $ cat Dockerfile     
-         FROM seanlook/nginx:bash\_vim    EXPOSE 80    ENTRYPOINT /usr/sbin/nginx -c /etc/nginx/nginx.conf && /bin/bash       
-         $ docker build -t seanlook/nginx:bash\_vim\_Df .    
-         Sending build context to Docker daemon 73.45 MB   
-          Sending build context to Docker daemon     
-         Step 0 : FROM seanlook/nginx:bash\_vim     ---> aa8516fa0bb7    
-         Step 1 : EXPOSE 80     ---> Using cache     ---> fece07e2b515    
-         Step 2 : ENTRYPOINT /usr/sbin/nginx -c /etc/nginx/nginx.conf && /bin/bash     ---> Running in e08963fd5afb     ---> d9bbd13f5066    
-         Removing intermediate container e08963fd5afb    
-         Successfully built d9bbd13f5066    
-         上面的PATH为.，所以在当前目录下的所有文件（不包括.dockerignore中的）将会被tar打包并传送到docker daemon（一般在本机），从输出我们可以到Sending build context...，最后有个Removing intermediate container的过程，可以通过--rm=false来保留容器。    TO-DO    docker build github.com/creack/docker-firefox失败。      
+5. docker build 使用此配置生成新的image    
+build命令可以从Dockerfile和上下文来创建镜像：   
+docker build \[OPTIONS\] PATH \| URL \| -    上面的PATH或URL中的文件被称作上下文，build image的过程会先把这些文件传送到docker的服务端来进行的。    如果PATH直接就是一个单独的Dockerfile文件则可以不需要上下文；如果URL是一个Git仓库地址，那么创建image的过程中会自动git clone一份到本机的临时目录，它就成为了本次build的上下文。无论指定的PATH是什么，Dockerfile是至关重要的，请参考Dockerfile Reference。    请看下面的例子：      
+$ cat Dockerfile     
+FROM seanlook/nginx:bash\_vim    EXPOSE 80    ENTRYPOINT /usr/sbin/nginx -c /etc/nginx/nginx.conf && /bin/bash       
+$ docker build -t seanlook/nginx:bash\_vim\_Df .    
+Sending build context to Docker daemon 73.45 MB   
+Sending build context to Docker daemon     
+Step 0 : FROM seanlook/nginx:bash\_vim     ---> aa8516fa0bb7    
+Step 1 : EXPOSE 80     ---> Using cache     ---> fece07e2b515    
+Step 2 : ENTRYPOINT /usr/sbin/nginx -c /etc/nginx/nginx.conf && /bin/bash     ---> Running in e08963fd5afb     ---> d9bbd13f5066    
+Removing intermediate container e08963fd5afb    
+Successfully built d9bbd13f5066    
+上面的PATH为.，所以在当前目录下的所有文件（不包括.dockerignore中的）将会被tar打包并传送到docker daemon（一般在本机），从输出我们可以到Sending build context...，最后有个Removing intermediate container的过程，可以通过--rm=false来保留容器。    TO-DO    docker build github.com/creack/docker-firefox失败。      
 
-6. 给镜像打上标签（tag）    tag的作用主要有两点：一是为镜像起一个容易理解的名字，二是可以通过docker tag来重新指定镜像的仓库，这样在push时自动提交到仓库。       
-            将同一IMAGE\_ID的所有tag，合并为一个新的   
-             $ docker tag 195eb90b5349 seanlook/ubuntu:rm\_test        
-             新建一个tag，保留旧的那条记录   
-              $ docker tag Registry/Repos:Tag New\_Registry/New\_Repos:New\_Tag   
+6 给镜像打上标签（tag）    tag的作用主要有两点：一是为镜像起一个容易理解的名字，二是可以通过docker tag来重新指定镜像的仓库，这样在push时自动提交到仓库。       
+将同一IMAGE\_ID的所有tag，合并为一个新的   
+$ docker tag 195eb90b5349 seanlook/ubuntu:rm\_test        
+新建一个tag，保留旧的那条记录   
+$ docker tag Registry/Repos:Tag New\_Registry/New\_Repos:New\_Tag   
 
-7. 查看容器的信息container（ps）  
-             docker ps命令可以查看容器的CONTAINER ID、NAME、IMAGE NAME、端口开启及绑定、容器启动后执行的COMMNAD。经常通过ps来找到CONTAINER\_ID。  
-               docker ps 默认显示当前正在运行中的container   
-                docker ps -a 查看包括已经停止的所有容器    
-                docker ps -l 显示最新启动的一个容器（包括已停止的）        
+7 查看容器的信息container（ps）  
+docker ps命令可以查看容器的CONTAINER ID、NAME、IMAGE NAME、端口开启及绑定、容器启动后执行的COMMNAD。经常通过ps来找到CONTAINER\_ID。  
+docker ps 默认显示当前正在运行中的container   
+docker ps -a 查看包括已经停止的所有容器    
+docker ps -l 显示最新启动的一个容器（包括已停止的）        
 
-8. 查看容器中正在运行的进程（top）   
-                 容器运行时不一定有/bin/bash终端来交互执行top命令，查看container中正在运行的进程，况且还不一定有top命令，这是docker top <container\_id/container\_name>就很有用了。实际上在host上使用ps -ef\|grep docker也可以看到一组类似的进程信息，把container里的进程看成是host上启动docker的子进程就对了。        
-                 9. 其他命令    docker还有一些如login、cp、logs、export、import、load、kill等不是很常用的命令，比较简单，请参考官网。    参考    Official Command Line Reference    docker中文指南cli-widuu翻译    Docker —— 从入门到实践    Docker基础与高级        
+8 查看容器中正在运行的进程（top）   
+容器运行时不一定有/bin/bash终端来交互执行top命令，查看container中正在运行的进程，况且还不一定有top命令，这是docker top <container\_id/container\_name>就很有用了。实际上在host上使用ps -ef\|grep docker也可以看到一组类似的进程信息，把container里的进程看成是host上启动docker的子进程就对了。        
+
+9 其他命令    docker还有一些如login、cp、logs、export、import、load、kill等不是很常用的命令，比较简单，请参考官网。    参考    Official Command Line Reference    docker中文指南cli-widuu翻译    Docker —— 从入门到实践    Docker基础与高级        
