@@ -20,9 +20,10 @@ DESCRIPTION           STARS     OFFICIAL   AUTOMATED  seanloook/centos6   sean's
 Usage: docker pull \[OPTIONS\] NAME\[:TAG\]  
 $ docker pull centos  
 上面的命令需要注意，在docker v1.2版本以前，会下载官方镜像的centos仓库里的所有镜像，而从v.13开始官方文档里的说明变了：will pull the centos:latest image, its intermediate layers and any aliases of the same id，也就是只会下载tag为latest的镜像 (以及同一images id的其他tag）。  也可以明确指定具体的镜像：  
-$ docker pull centos:centos6  当然也可以从某个人的公共仓库 (包括自己是私人仓库）拉取，形如docker pull username/repository\<\:\tag\_name>  
+$ docker pull centos:centos6  当然也可以从某个人的公共仓库 (包括自己是私人仓库）拉取，形如
+docker pull username/repository:tag\_name 
 $ docker pull seanlook/centos:centos6  如果你没有网络，或者从其他私服获取镜像，形如
-docker pull registry.domain.com:5000/repos:<\tag\_name>  
+docker pull registry.domain.com:5000/repos:tag\_name  
 $ docker pull dl.dockerpool.com:5000/mongo:latest    
 
 4 推送一个image或repository到registry (push）  
