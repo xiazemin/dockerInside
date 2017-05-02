@@ -77,15 +77,15 @@ commit container只会pause住容器，这是为了保证容器文件系统的�
 虽然产生了一个新的image，并且你可以看到大小有100MB，但从commit过程很快就可以知道实际上它并没有独立占用100MB的硬盘空间，而只是在旧镜像的基础上修改，它们共享大部分公共的“片”。下    
 
 1. 开启/停止/重启container（start/stop/restart）   
- 容器可以通过run新建一个来运行，也可以重新start已经停止的container，但start不能够再指定容器启动时运行的指令，因为docker只能有一个前台进程。   
-  容器stop（或Ctrl+D）时，会在保存当前容器的状态之后退出，下次start时保有上次关闭时更改。而且每次进入attach进去的界面是一样的，与第一次run启动或commit提交的时刻相同。        CONTAINER\_ID=$\(docker start <containner\_id>\)    docker stop $CONTAINER\_ID    docker restart $CONTAINER\_ID    关于这几个命令可以通过一个完整的实例使用：docker如何创建一个运行后台进程的容器并同时提供shell终端。        
+容器可以通过run新建一个来运行，也可以重新start已经停止的container，但start不能够再指定容器启动时运行的指令，因为docker只能有一个前台进程。   
+容器stop（或Ctrl+D）时，会在保存当前容器的状态之后退出，下次start时保有上次关闭时更改。而且每次进入attach进去的界面是一样的，与第一次run启动或commit提交的时刻相同。        CONTAINER\_ID=$\(docker start <containner\_id>\)    docker stop $CONTAINER\_ID    docker restart $CONTAINER\_ID    关于这几个命令可以通过一个完整的实例使用：docker如何创建一个运行后台进程的容器并同时提供shell终端。        
 
- 2. 连接到正在运行中的container（attach）    要attach上去的容器必须正在运行，可以同时连接上同一个container来共享屏幕（与screen命令的attach类似）。    官方文档中说attach后可以通过CTRL-C来detach，但实际上经过我的测试，如果container当前在运行bash，CTRL-C自然是当前行的输入，没有退出；如果container当前正在前台运行进程，如输出nginx的access.log日志，CTRL-C不仅会导致退出容器，而且还stop了。这不是我们想要的，detach的意思按理应该是脱离容器终端，但容器依然运行。好在attach是可以带上--sig-proxy=false来确保CTRL-D或CTRL-C不会关闭容器。        
- $ docker attach --sig-proxy=false $CONTAINER\_ID    
+2. 连接到正在运行中的container（attach）    要attach上去的容器必须正在运行，可以同时连接上同一个container来共享屏幕（与screen命令的attach类似）。    官方文档中说attach后可以通过CTRL-C来detach，但实际上经过我的测试，如果container当前在运行bash，CTRL-C自然是当前行的输入，没有退出；如果container当前正在前台运行进程，如输出nginx的access.log日志，CTRL-C不仅会导致退出容器，而且还stop了。这不是我们想要的，detach的意思按理应该是脱离容器终端，但容器依然运行。好在attach是可以带上--sig-proxy=false来确保CTRL-D或CTRL-C不会关闭容器。        
+$ docker attach --sig-proxy=false $CONTAINER\_ID    
 
- 3. 查看image或container的底层信息（inspect）    inspect的对象可以是image、运行中的container和停止的container。        
- 查看容器的内部IP    
- $ docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER\_ID    172.17.42.35   
+3. 查看image或container的底层信息（inspect）    inspect的对象可以是image、运行中的container和停止的container。        
+查看容器的内部IP    
+$ docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER\_ID    172.17.42.35   
 
 4 删除一个或多个container、image（rm、rmi）    你可能在使用过程中会build或commit许多镜像，无用的镜像需要删除。但删除这些镜像是有一些条件的：        同一个IMAGE ID可能会有多个TAG（可能还在不同的仓库），首先你要根据这些 image names 来删除标签，当删除最后一个tag的时候就会自动删除镜像；    承上，如果要删除的多个IMAGE NAME在同一个REPOSITORY，可以通过docker rmi <image\_id>来同时删除剩下的TAG；若在不同Repo则还是需要手动逐个删除TAG；    还存在由这个镜像启动的container时（即便已经停止），也无法删除镜像；    TO-DO    如何查看镜像与容器的依存关系       
 删除容器    
