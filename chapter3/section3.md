@@ -55,9 +55,9 @@ $ docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 2; don
 -v <host\_path:container\_path>，绑定多个目录时再加-v。       
 -v /tmp/docker:/tmp/docker    另外在两个container之间建立联系可用--link，详见高级部分或官方文档。    下面是一个例子：        
 $ docker run --name nginx\_test \    
-> -v /tmp/docker:/usr/share/nginx/html:ro \   
-> -p 80:80 -d \    
-> nginx:1.7.6    
+~ -v /tmp/docker:/usr/share/nginx/html:ro \   
+~ -p 80:80 -d \    
+~ nginx:1.7.6    
 在主机的/tmp/docker下建立index.html，就可以通过http://localhost:80/或http://host-ip:80访问了。        
 
 6 将一个container固化为一个新的image（commit）    
