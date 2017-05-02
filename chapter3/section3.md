@@ -1,16 +1,13 @@
-$ section3
+＃ docker常用命令
 本文只记录Docker命令在大部分情境下的使用，如果想了解每一个选项的细节，请参考官方文档，这里只作为自己以后的备忘记录下来。
 
 根据自己的理解，总的来说分为以下几种：
-
 容器生命周期管理 — docker [run|start|stop|restart|kill|rm|pause|unpause]
 容器操作运维 — docker [ps|inspect|top|attach|events|logs|wait|export|port]
 容器rootfs命令 — docker [commit|cp|diff]
 镜像仓库 — docker [login|pull|push|search]
 本地镜像管理 — docker [images|rmi|tag|build|history|save|import]
 其他命令 — docker [info|version]
-看一个变迁图
-
 
 1. 列出机器上的镜像（images）
 $ docker images 
