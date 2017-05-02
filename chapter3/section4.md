@@ -18,3 +18,7 @@ $docker run --name my\_container  -i -t ubuntu /bin/bash
 
 --name为容器指定一个名称，使用指定的容器名称比使用容器ID更方便。
 
+3. 重新启动已停止的容器
+
+
+
