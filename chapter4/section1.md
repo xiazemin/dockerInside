@@ -66,5 +66,11 @@ Shipyard也是完全基于Docker API，支持container管理、engine管理（�
 
 docker pull hub.c.163.com/longjuxu/shipyard/shipyard:latest
 
+$  docker run --rm -v /var/run/docker.sock:/var/run/docker.sock hub.c.163.com/longjuxu/shipyard/shipyard server
 
+time="2017-05-02T10:53:07Z" level=info msg="shipyard version 3.1.0"
+
+time="2017-05-02T10:53:13Z" level=warning msg="Error creating connection: gorethink: dial tcp: lookup rethinkdb on 192.168.65.1:53: server misbehaving"
+
+time="2017-05-02T10:53:13Z" level=fatal msg="no connections were made when creating the session"
 
