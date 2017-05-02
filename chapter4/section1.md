@@ -120,5 +120,53 @@ $ docker run -it -p 8089:8089 -d --name shipyard1 --link shipyard-rethinkdb:reth
 
 d1a269ed556d8a25b7cb78cc3284775940fc9fb84cfaa520bc41fbc3a0786b20
 
+创建容器
 
+
+
+$docker run -ti -p 40001:40001 -p 40002:40002 -v /home/docker\_data/rethinkdb:/data --name rethinkdb hub.c.163.com/lixiaoming/rethinkdb sh /etc/rc.local
+
+
+
+配置自启动
+
+
+
+$vim /etc/rc.local
+
+
+
+在"\# Add Start bash under me!"行下添加如下内容:
+
+
+
+\#RethinkDB
+
+
+
+rethinkdb -d /data --driver-port 40001 --http-port 40002 --bind all --daemon
+
+
+
+按“:x”，回车
+
+
+
+$exit
+
+
+
+启动容器
+
+
+
+$docker start rethinkdb
+
+
+
+访问http://localhost:40002/
+
+
+
+看看能否打开管理页面。
 
