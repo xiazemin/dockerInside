@@ -18,9 +18,9 @@ $ sudo docker load ubuntu\_14.04.tar
 Docker exec与Docker attach
 不论是开发者是运维人员，都经常有需要进入容器的诉求。
 目前主要的方法有以下几种：
-1. 使用ssh登陆进容器
-2. 使用nsenter、nsinit等第三方工具
-3. 使用docker本身提供的工具
+1 使用ssh登陆进容器
+2 使用nsenter、nsinit等第三方工具
+3 使用docker本身提供的工具
 
 方法1需要在容器中启动sshd，存在开销和攻击面增大的问题。同时也违反了Docker所倡导
 的一个容器一个进程的原则。
