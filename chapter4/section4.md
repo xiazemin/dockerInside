@@ -22,5 +22,5 @@ $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock regist
 
 ![](/assets/importui2.png)![](/assets/importui3.png)
 
-
+2）container容器管理。点击Display All ，可以显示所有创建了的容器，包括没有启动的。然后点击Action，可以对容器进行启动，关闭，重启，删除，挂起等操作。
 
