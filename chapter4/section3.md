@@ -64,7 +64,7 @@ $ docker run -ti -d -p 54001:4001 -p 57001:7001 --restart=always --name shipyard
 
 
 
-$ docker run -ti -d -p 2375:2375 --hostname=192.168.220.123 --restart=always --name shipyard-proxy -v /var/run/docker.sock:/var/run/docker.sock -e PORT=2375 hub.c.163.com/longjuxu/shipyard/docker-proxy
+$ docker run -ti -d -p 2375:2375 --hostname=127.0.0.1 --restart=always --name shipyard-proxy -v /var/run/docker.sock:/var/run/docker.sock -e PORT=2375 hub.c.163.com/longjuxu/shipyard/docker-proxy
 
 
 
@@ -72,11 +72,11 @@ $ docker run -ti -d -p 2375:2375 --hostname=192.168.220.123 --restart=always --n
 \* \[section7\]\(chapter1/section7.md\)
 ```
 
-$ docker run -ti -d --restart=always --name shipyard-swarm-manager hub.c.163.com/library/swarm  manage --host tcp://0.0.0.0:3375 etcd://192.168.220.123:54001
+$ docker run -ti -d --restart=always --name shipyard-swarm-manager hub.c.163.com/library/swarm  manage --host tcp://127.0.0.1:3375 etcd://127.0.0.1:54001
 
 
 
-$ docker run -ti -d --restart=always --name shipyard-swarm-agent  hub.c.163.com/library/swarm  join --addr 192.168.220.123:2375 etcd://192.168.220.123:54001
+$ docker run -ti -d --restart=always --name shipyard-swarm-agent  hub.c.163.com/library/swarm  join --addr 127.0.0.1:2375 etcd://127.0.0.1:54001
 
 
 
