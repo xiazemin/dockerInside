@@ -16,5 +16,7 @@ $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock regist
 
 463b6e26bae471725bafd95a0db6a443356dc226275a0b71e1172967fea7cf4c
 
+http://127.0.0.1:9000/\#/
 
+![](/assets/importui.png)
 
