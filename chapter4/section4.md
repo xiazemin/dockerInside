@@ -20,5 +20,7 @@ $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock regist
 
 ![](/assets/importui.png)1）Dashboard控制台。点击Running Containers下面活跃的容器，进入容器的管理界面进行相关操作，比如修改容器名，commit提交容器为新的镜像等。
 
+![](/assets/importui2.png)![](/assets/importui3.png)
+
 
 
