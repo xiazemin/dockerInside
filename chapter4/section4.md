@@ -16,7 +16,9 @@ $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock regist
 
 463b6e26bae471725bafd95a0db6a443356dc226275a0b71e1172967fea7cf4c
 
-http://127.0.0.1:9000/\#/
+[http://127.0.0.1:9000/\#/](http://127.0.0.1:9000/#/)
 
-![](/assets/importui.png)
+![](/assets/importui.png)1）Dashboard控制台。点击Running Containers下面活跃的容器，进入容器的管理界面进行相关操作，比如修改容器名，commit提交容器为新的镜像等。
+
+
 
