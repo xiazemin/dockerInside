@@ -34,5 +34,7 @@ $ docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock regist
 
 点击镜像ID进入，可以添加或删除镜像tag标识。
 
-![](/assets/importui8.png)点击ID进入，可以启动容器
+![](/assets/importui8.png)点击ID进入，可以启动容器，设置容器和宿主机参数
+
+![](/assets/importui9.png)
 
