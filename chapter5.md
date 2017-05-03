@@ -34,9 +34,11 @@ docker run --name php-fpm -d -p 8083:8083 -v /Users/didi/docker/nginx:/var/www/h
 
 docker exec -it php-fpm bash
 
- docker ps
+docker ps
 
-docker inspect 1016c92378d8 
+docker inspect 1016c92378d8
 
 得到ip：172.17.0.2
+
+
 
