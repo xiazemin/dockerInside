@@ -20,5 +20,13 @@ $ docker exec -it nginx bash
 
 root@4097947fb2e8:/\# cp -r  /etc/nginx /usr/share/nginx/html/
 
+$ docker run --name nginx\_fpm -it -p 8084:8084 --link php-fpm:php-fpm -v  /Users/didi/docker/nginx/nginx:/etc/nginx/ --volumes-from php-fpm  curl/vim/nginx:v1
+
+$ docker exec -it nginx\_fpm bash
+
+root@32ebf5ffc676:/\# vim /etc/nginx//conf.d/default.conf
+
+root@32ebf5ffc676:/\# nginx -s reload
+
 
 
