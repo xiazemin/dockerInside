@@ -48,21 +48,21 @@ Starting php-fpm  done
 
 $nginx didi$ docker run --name lnmp -it -p 8085:80 hub.c.163.com/mrjucn/centos6.5-mysql5.1-php5.7-nginx:latest /bin/bash
 
-![](/assets/importlnmp.png)![](/assets/importp.png)修改MySQL的登录设置： 
+![](/assets/importlnmp.png)![](/assets/importp.png)修改MySQL的登录设置：
 
-\# vi /etc/my.cnf 
+\# vi /etc/my.cnf
 
-在\[mysqld\]的段中加上一句：skip-grant-tables 
+在\[mysqld\]的段中加上一句：skip-grant-tables
 
-例如： 
+例如：
 
-\[mysqld\] 
+\[mysqld\]
 
-datadir=/var/lib/mysql 
+datadir=/var/lib/mysql
 
-socket=/var/lib/mysql/mysql.sock 
+socket=/var/lib/mysql/mysql.sock
 
-skip-grant-tables 
+skip-grant-tables
 
 \[root@cc11423aa34a phpmyadmin\]\# vi /etc/my.cnf
 
@@ -133,4 +133,14 @@ Bye
 \[root@cc11423aa34a phpmyadmin\]\# /etc/init.d/mysql restart
 
 Shutting down MySQL...                                     \[  OK  \]
+
+Starting MySQL.                                            \[  OK  \]
+
+\[root@cc11423aa34a var\]\# /usr/bin/mysql -c -A -h127.0.0.1 -P3306 -uroot -p123456
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+
+Your MySQL connection id is 1
+
+mysql&gt;
 
