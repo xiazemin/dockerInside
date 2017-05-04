@@ -42,3 +42,13 @@ docker inspect 1016c92378d8
 
 apt-get install curl
 
+curl "http://127.0.0.1:80"  403
+
+cd  /usr/share/nginx/html      vi index.html
+
+curl "http://127.0.0.1:80"
+
+&lt;html&gt;
+
+&lt;/html&gt;
+
