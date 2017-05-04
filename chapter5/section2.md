@@ -22,3 +22,33 @@ Digest: sha256:4548e5ff8b50da8d6b442cfcd0a71ec90809d1fdfe82949ffd6362b415d7c6e9
 
 Status: Downloaded newer image for hub.c.163.com/mrjucn/centos6.5-mysql5.1-php5.7-nginx:latest
 
+$ docker run --name lnmp -it -p 8085:8085 hub.c.163.com/mrjucn/centos6.5-mysql5.1-php5.7-nginx:latest /bin/bash
+
+\[root@03949f263d85 /\]\# LNMP start
+
+bash: LNMP: command not found
+
+\[root@03949f263d85 /\]\# lnmp start
+
++-------------------------------------------+
+
+\|    Manager for LNMP, Written by Licess    \|
+
++-------------------------------------------+
+
+\|              http://lnmp.org              \|
+
++-------------------------------------------+
+
+Starting LNMP...
+
+Starting nginx...  done
+
+Starting MySQL.                                            \[  OK  \]
+
+Starting php-fpm  done
+
+\[root@03949f263d85 /\]\#
+
+
+
