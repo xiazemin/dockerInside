@@ -58,3 +58,11 @@ vim /etc/nginx//conf.d/default.conf
 
 nginx -s reload
 
+curl "http://127.0.0.1:8082"
+
+&lt;html&gt;
+
+&lt;/html&gt;
+
+
+
