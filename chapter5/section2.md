@@ -46,3 +46,5 @@ Starting php-fpm  done
 
 \[root@03949f263d85 /\]\#
 
+$nginx didi$ docker run --name lnmp -it -p 8085:80 hub.c.163.com/mrjucn/centos6.5-mysql5.1-php5.7-nginx:latest /bin/bash
+
