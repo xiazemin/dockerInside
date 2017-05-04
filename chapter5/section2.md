@@ -48,5 +48,85 @@ Starting php-fpm  done
 
 $nginx didi$ docker run --name lnmp -it -p 8085:80 hub.c.163.com/mrjucn/centos6.5-mysql5.1-php5.7-nginx:latest /bin/bash
 
-![](/assets/importlnmp.png)
+![](/assets/importlnmp.png)![](/assets/importp.png)\[root@cc11423aa34a phpmyadmin\]\# vi /etc/my.cnf
+
+\[root@cc11423aa34a phpmyadmin\]\#
+
+\[root@cc11423aa34a phpmyadmin\]\# /etc/init
+
+init/   init.d/
+
+\[client\]
+
+\[root@cc11423aa34a phpmyadmin\]\# /etc/init.d/
+
+atd          killall      network      portreserve  saslauthd
+
+crond        messagebus   nginx        rdisc        sendmail
+
+cups         mysql        ntpd         restorecond  single
+
+halt         netconsole   ntpdate      rsyslog      sshd
+
+iptables     netfs        php-fpm      sandbox      udev-post
+
+\[root@cc11423aa34a phpmyadmin\]\# /etc/init.d/mysql restart
+
+Shutting down MySQL...                                     \[  OK  \]
+
+Starting MySQL.                                            \[  OK  \]
+
+\[root@cc11423aa34a phpmyadmin\]\# /usr/bin/my
+
+myisamchk    mysql        mysqlcheck   mysqld\_safe  mysqldump
+
+\[root@cc11423aa34a phpmyadmin\]\# /usr/bin/mysql
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+
+Your MySQL connection id is 1
+
+Server version: 5.1.73-log Source distribution
+
+
+
+Copyright \(c\) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+
+affiliates. Other names may be trademarks of their respective
+
+owners.
+
+
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+
+
+mysql&gt; use mysql
+
+Database changed
+
+mysql&gt;  UPDATE user SET Password= password\('123456'\) WHERE User = 'root' ;
+
+Query OK, 2 rows affected \(0.00 sec\)
+
+Rows matched: 2  Changed: 2  Warnings: 0
+
+
+
+mysql&gt; quit
+
+Bye
+
+\[root@cc11423aa34a phpmyadmin\]\# vi /etc/my.cnf
+
+\[root@cc11423aa34a phpmyadmin\]\# /etc/init.d/mysql restart
+
+Shutting down MySQL...                                     \[  OK  \]
+
+
 
