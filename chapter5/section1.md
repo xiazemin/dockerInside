@@ -6,5 +6,9 @@ nginx 配置目录/etc/nginx/nginx.conf
 
 $ docker run --name nginx\_fpm -d -p 8084:8084 --link php-fpm:php-fpm -v  /Users/didi/docker/nginx/:/etc/nginx/ --volumes-from php-fpm  curl/vim/nginx:v1
 
+$ docker exec -it nginx\_fpm bash
+
+Error response from daemon:
+
 
 
