@@ -24,10 +24,6 @@ Status: Downloaded newer image for hub.c.163.com/mrjucn/centos6.5-mysql5.1-php5.
 
 $ docker run --name lnmp -it -p 8085:8085 hub.c.163.com/mrjucn/centos6.5-mysql5.1-php5.7-nginx:latest /bin/bash
 
-\[root@03949f263d85 /\]\# LNMP start
-
-bash: LNMP: command not found
-
 \[root@03949f263d85 /\]\# lnmp start
 
 +-------------------------------------------+
@@ -36,7 +32,7 @@ bash: LNMP: command not found
 
 +-------------------------------------------+
 
-\|              http://lnmp.org              \|
+\|              [http://lnmp.org](http://lnmp.org)              \|
 
 +-------------------------------------------+
 
@@ -49,6 +45,4 @@ Starting MySQL.                                            \[  OK  \]
 Starting php-fpm  done
 
 \[root@03949f263d85 /\]\#
-
-
 
