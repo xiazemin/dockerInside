@@ -28,5 +28,11 @@ root@32ebf5ffc676:/\# vim /etc/nginx//conf.d/default.conf
 
 root@32ebf5ffc676:/\# nginx -s reload
 
+![](/assets/importng.png)172.17.0.1 - - \[04/May/2017:05:27:39 +0000\] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 \(Macintosh; Intel Mac OS X 10\_11\_1\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/58.0.3029.96 Safari/537.36" "-"
+
+![](/assets/importfpm.png)2017/05/04 05:28:00 \[error\] 14\#14: \*7 connect\(\) failed \(111: Connection refused\) while connecting to upstream, client: 172.17.0.1, server: localhost, request: "GET /phpinfo.php HTTP/1.1", upstream: "fastcgi://172.17.0.9:8083", host: "127.0.0.1:8084"
+
+172.17.0.1 - - \[04/May/2017:05:28:00 +0000\] "GET /phpinfo.php HTTP/1.1" 502 537 "-" "Mozilla/5.0 \(Macintosh; Intel Mac OS X 10\_11\_1\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/58.0.3029.96 Safari/537.36" "-"
+
 
 
