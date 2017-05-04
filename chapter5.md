@@ -40,5 +40,5 @@ docker inspect 1016c92378d8
 
 得到ip：172.17.0.2
 
-
+apt-get install curl
 
