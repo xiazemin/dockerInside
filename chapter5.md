@@ -58,11 +58,13 @@ vim /etc/nginx//conf.d/default.conf
 
 nginx -s reload
 
-curl "http://127.0.0.1:8082"
+curl "[http://127.0.0.1:8082](http://127.0.0.1:8082)"
 
 &lt;html&gt;
 
 &lt;/html&gt;
 
+宿主机http://127.0.0.1:8082/
 
+nginx安装成功
 
