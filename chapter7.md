@@ -238,5 +238,21 @@ Reading package lists... Done
 
 &lt;!--STATUS OK--&gt;&lt;html&gt; &lt;head&gt;&lt;meta htt
 
+保存镜像修改
 
+～$docker ps -l
+
+CONTAINER ID        IMAGE                                  COMMAND               CREATED             STATUS              PORTS                 NAMES
+
+dd856297d900        hub.c.163.com/liuinstein/sshd:latest   "/usr/sbin/sshd -D"   3 hours ago         Up 3 hours          0.0.0.0:222-&gt;22/tcp   priceless\_pare
+
+17:45:36-didi@bogon:~/PhpstormProjects/decode$docker commit dd856297d900 ifconfig/curl
+
+sha256:152cad44854175b4542bad56d80d76274818ce0d5e9dbda42900d23a44a70ed5
+
+17:46:21-didi@bogon:~/PhpstormProjects/decode$docker images
+
+REPOSITORY                                             TAG                 IMAGE ID            CREATED             SIZE
+
+ifconfig/curl                                          latest              152cad448541        10 seconds ago      263 MB
 
