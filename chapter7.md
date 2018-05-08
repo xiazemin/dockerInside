@@ -224,5 +224,19 @@ inet addr:172.17.0.8 Bcast:0.0.0.0 Mask:255.255.0.0
 
 ~$ssh root@172.17.0.8  -p 222
 
- ssh: connect to host 172.17.0.8 port 222: Operation timed out
+ssh: connect to host 172.17.0.8 port 222: Operation timed out
+
+安装curl
+
+～\# apt install curl
+
+Reading package lists... Done
+
+~\# curl www.baidu.com
+
+&lt;!DOCTYPE html&gt;
+
+&lt;!--STATUS OK--&gt;&lt;html&gt; &lt;head&gt;&lt;meta htt
+
+
 
