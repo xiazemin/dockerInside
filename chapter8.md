@@ -38,5 +38,9 @@ docker network create --driver bridge --subnet 192.168.100.0/24 --ip-range 192.1
 
 Error response from daemon: cannot create network 0861abfb49eb6351be1cbe41e9c1d923bc0359705a5c74f2ad29a584231db07a \(br-0861abfb49eb\): conflicts with network 77f42967f231d0ccc4806c41d348fb221b0fb597efb6dda0680393c877a1edb9 \(docker0\): networks have overlapping IPv4
 
+～／$docker network create docker0
+
+34033bd991144573177dba986df772979f73d578caf8a1c2eb8b2f9f229df272
+
 
 
