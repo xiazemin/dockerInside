@@ -44,3 +44,11 @@ docker创建的每个网桥网络由docker主机上的网桥接口呈现。、 �
 
 34033bd991144573177dba986df772979f73d578caf8a1c2eb8b2f9f229df272
 
+root@e4ae8449047f:~\#  brctl show docker0
+
+bridge name	bridge id		STP enabled	interfaces
+
+docker0		can't get info No such device
+
+
+
