@@ -30,6 +30,13 @@ e19d371e8b77        none                null                local
 
 ～$ docker network inspect bridge
 
-  
+可以使用docker network create命令并指定选项--driver bridge创建自己的网络，例如
+
+docker network create --driver bridge --subnet 192.168.100.0/24 --ip-range 192.168.100.0/ 24 my-bridge-network创建另一个网桥网络，名称为“my-bridge-network”，子网为192.168.100.0/24。
+
+～／$docker network create --driver bridge --subnet 172.17.100.0/16 --ip-range 172.17.100.0/16  my-bridge-network-docker
+
+Error response from daemon: cannot create network 0861abfb49eb6351be1cbe41e9c1d923bc0359705a5c74f2ad29a584231db07a \(br-0861abfb49eb\): conflicts with network 77f42967f231d0ccc4806c41d348fb221b0fb597efb6dda0680393c877a1edb9 \(docker0\): networks have overlapping IPv4
+
 
 
