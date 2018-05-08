@@ -1,5 +1,13 @@
 # 安装ping
 
+~$docker run -d -p 222:22 hub.c.163.com/liuinstein/sshd:latest /usr/sbin/sshd -D
+
+dd856297d9009e02aa695ee7afe67f31b98d99e1d8f9af51eef15b3a84ba0657
+
+~$ssh root@localhost -p 222
+
+root
+
 ~\# ping wwwbaidu.com
 
 -bash: ping: command not found
@@ -204,8 +212,6 @@ media: autoselect \(1000baseT &lt;full-duplex,energy-efficient-ethernet&gt;\)
 status: active
 ```
 
-
-
 宿主机
 
 inet 172.24.20.7 netmask 0xfffffc00 broadcast 172.24.23.255
@@ -215,6 +221,4 @@ docker机
 inet addr:172.17.0.8 Bcast:0.0.0.0 Mask:255.255.0.0
 
 在不同网段所以直接ssh docker 的ip无法登陆
-
-
 
