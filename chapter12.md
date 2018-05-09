@@ -80,87 +80,135 @@ d）以-b的方式指定网桥
 
 \# ip link set dev docker0 down
 
-
-
-
-
-
-
 \# brctl delbr docker0
-
-
-
-
-
-
 
 \# brctl addbr bridge0
 
-
-
-
-
 \# ip addr add 192.168.5.1/24 dev bridge0 //注意，这个192.168.5.1就是所建容器的网关地址。通过docker inspect container\_id能查看到
-
-
-
-
 
 \# ip link set dev bridge0 up
 
-
-
-
-
-
-
 \# ip addr show bridge0
-
-
-
-
 
 \# vim /etc/sysconfig/docker //即将虚拟的桥接口由默认的docker0改为bridge0
 
-
-
-
-
-
-
 将
-
-
-
-
-
-
 
 OPTIONS='--selinux-enabled --log-driver=journald'
 
-
-
-
-
-
-
 改为
-
-
-
-
-
-
 
 OPTIONS='--selinux-enabled --log-driver=journald -b=bridge0' //即添加-b=bridge0
 
-
-
-
-
 \# service docker restart
 
+\# docker inspect --format='{{.NetworkSettings.IPAddress}}' 224facf8e054
 
+
+
+
+
+
+
+192.168.5.3
+
+
+
+
+
+
+
+
+
+然后创建容器，查看下容器ip是否为设定的192.168.5.1/24网段的
+
+\# brctl show
+
+
+
+
+
+
+
+bridge name bridge id STP enabled interfaces
+
+
+
+
+
+
+
+bridge0 8000.ba141fa20c91 no vethe7e227b
+
+
+
+
+
+
+
+vethf382771
+
+
+
+
+
+
+
+　　使用pipework给容器设置一个固定的ip
+
+
+
+
+
+
+
+可以利用pipework为容器指定一个固定的ip，操作方法非常简单，如下：
+
+
+
+
+
+
+
+\# brctl addbr br0
+
+
+
+
+
+
+
+\# ip link set dev br0 up
+
+
+
+
+
+\# ip addr add 192.168.114.1/24 dev br0 //这个ip相当于br0网桥的网关ip，可以随意设定。
+
+
+
+
+
+
+
+\# docker run -ti -d --net=none --name=my-test1 docker.io/nginx /bin/bash
+
+
+
+
+
+\# pipework br0 -i eth0 my-test1 192.168.114.100/24@192.168.114.1
+
+
+
+\# docker exec -ti my-test1 /bin/bash
+
+
+
+
+
+\# ip addr
 
 
 
