@@ -614,12 +614,11 @@ Destination Gateway Genmask Flags Metric Ref Use Iface
 
 ......
 
-Nov 23 22:09:08 hdcoe02 systemd\\[1\\]: network.service: control process exited, code=exited status=1
+Nov 23 22:09:08 hdcoe02 systemd\\ network.service: control process exited, code=exited status=1
 
-Nov 23 22:09:08 hdcoe02 systemd\\[1\\]: Failed to start LSB: Bring up/down networking.
+Nov 23 22:09:08 hdcoe02 systemd Failed to start LSB: Bring up/down networking.
 
-Nov 23 22:09:08 hdcoe02 systemd\\[1\\]: Unit network.service entered failed state.&lt;/span&gt;
-
+Nov 23 22:09:08 hdcoe02 systemd\\Unit network.service entered failed state./span
 解决办法：
 
 \\# systemctl enable NetworkManager-wait-online.service
@@ -664,7 +663,7 @@ net.ipv4.ip\\_forward=1
 
 \\[iyunv@Slave1 ~\\]$ mkdir -p ~/rpmbuild/SOURCES
 
-\\[iyunv@Slave1 ~\\]$ sed 's/openvswitch-kmod, //g' openvswitch-2.3.0/rhel/openvswitch.spec &gt; openvswitch-2.3.0/rhel/openvswitch\\_no\\_kmod.spec
+\\[iyunv@Slave1 ~\\]$ sed 's/openvswitch-kmod, //g' openvswitch-2.3.0/rhel/openvswitch.spec openvswitch-2.3.0/rhel/openvswitch\\_no\\_kmod.spec
 
 \\[iyunv@Slave1 ~\\]$ cp openvswitch-2.3.0.tar.gz rpmbuild/SOURCES/
 
