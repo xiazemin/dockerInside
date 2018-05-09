@@ -180,351 +180,201 @@ docker0 8000.02426f15541e no veth92d132f
 
 实例说明如下：
 
-
-
-
-
-
-
 宿主机信息
-
-
-
-
-
-
 
 ip：192.168.1.23 （网卡设备为eth0）
 
-
-
-
-
-
-
 gateway：192.168.1.1
-
-
-
-
-
-
 
 netmask：255.255.255.0
 
-
-
-
-
-
-
 1）删除虚拟桥接卡docker0的配置
-
-
-
-
 
 \# service docker stop
 
-
-
 \# ip link set dev docker0 down
-
-
 
 \# brctl delbr docker0
 
-
-
-
-
-
-
 \# brctl addbr br0
-
-
-
-
 
 \# ip link set dev br0 up
 
-
-
-
-
-
-
 \# ip addr del 192.168.1.23/24 dev eth0//删除宿主机网卡的IP（如果是使用这个地址进行的远程连接，这一步操作后就会断掉；如果是使用外网地址连接的话，就不会断开）
-
-
-
-
-
-
 
 \# ip addr add 192.168.1.23/24 dev br0 //将宿主主机的ip设置到br0
 
-
-
-
-
 \# brctl addif br0 eth0 //将宿主机网卡挂到br0上
-
-
 
 \# ip route del default //删除默认的原路由，其实就是eth0上使用的原路由192.1681.1（这步小心，注意删除后要保证机器能远程连接上，最好是通过外网ip远程连的。别删除路由后，远程连接不上，中断了）
 
-
-
-
-
 \# ip route add default via 192.168.1.1 dev br0 //为br0设置路由
-
-
-
-
 
 \# vim /etc/sysconfig/docker //即将虚拟的桥接口由默认的docker0改为bridge0
 
-
-
-
-
-
-
 将
-
-
-
-
-
-
 
 OPTIONS='--selinux-enabled --log-driver=journald'
 
-
-
-
-
-
-
 改为
-
-
-
-
-
-
 
 OPTIONS='--selinux-enabled --log-driver=journald -b=br0' //即添加-b=br0
 
-
-
-
-
 \# service docker start
-
-
-
-
-
-
 
 启动一个手动设置网络的容器
 
-
-
-
-
-
-
 \# docker ps
-
-
-
-
-
-
 
 CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
 
-
-
-
-
-
-
 6e64eade06d1 docker.io/centos "/bin/bash" 10 seconds ago Up 9 seconds my-centos
-
-
 
 \# docker run -itd --net=none --name=my-test1 docker.io/centos
 
-
-
-
-
-
-
 为my-test1容器设置一个与桥接物理网络同地址段的ip（如下，"ip@gateway"
-
-
-
-
-
-
 
 默认不指定网卡设备名，则默认添加为eth0。可以通过-i参数添加网卡设备名
 
-
-
 \# pipework br0 -i eth0 my-test1 192.168.1.190/24@192.168.1.1
-
-
-
-
-
-
 
 同理，在其他机器上启动容器，并类似上面用pipework设置一个同网段类的ip，这样跨主机的容器就可以相互ping通了！
 
-
-
-
-
 2）保留默认虚拟桥接卡docker0的配置
 
-
-
 \# cd /etc/sysconfig/network-scripts/
-
-
 
 \# cp ifcfg-eth0 ifcfg-eth0.bak
 
 \# cp ifcfg-eth0 ifcfg-br0
 
-
-
 \# vim ifcfg-eth0 //增加BRIDGE=br0，删除IPADDR,NETMASK,GATEWAY,DNS的设置
 
-
-
 ......
-
-
 
 BRIDGE=br0
 
-
-
 \# vim ifcfg-br0 //修改DEVICE为br0,Type为Bridge,把eth0的网络设置设置到这里来（里面应该有ip，网关，子网掩码或DNS设置）
-
-
 
 ......
 
-
-
 TYPE=Bridge
-
-
 
 DEVICE=br0
 
-
-
 \# service network restart
-
-
 
 \# service docker restart
 
-
-
 开启一个容器并指定网络模式为none（这样，创建的容器就不会通过docker0自动分配ip了，而是根据pipework工具自定ip指定）
-
-
 
 \# docker run -itd --net=none --name=my-centos docker.io/centos /bin/bash
 
-
-
 6e64eade06d1eb20be3bd22ece2f79174cd033b59182933f7bbbb502bef9cb0f
-
-
 
 接着给容器配置网络
 
-
-
 \# pipework br0 -i eth0 my-centos 192.168.1.150/24@192.168.1.1
-
-
 
 \# docker attach 6e64eade06d1
 
-
-
 \# ifconfig eth0 //若没有ifconfig命令，可以yum安装net-tools工具
-
-
 
 \# route -n
 
-
-
 Kernel IP routing table
-
-
 
 Destination Gateway Genmask Flags Metric Ref Use Iface
 
-
-
 0.0.0.0 192.168.1.1 0.0.0.0 UG 0 0 0 eth0
-
-
 
 192.168.115.0 0.0.0.0 255.255.255.0 U 0 0 0 eth0
 
-
-
 另外pipework不能添加静态路由，如果有需求则可以在run的时候加上--privileged=true 权限在容器中手动添加，但这种方法安全性有缺陷。
-
-
 
 除此之外，可以通过ip netns（--help参考帮助）添加静态路由，以避免创建容器使用--privileged=true选项造成一些不必要的安全问题：
 
-
-
 如下获取指定容器的pid
 
-
-
 \# docker inspect --format="［［ .State.Pid }}" 6e64eade06d1
-
-
 
 7852
 
 \# ln -s /proc/7852/ns/net /var/run/netns/7852
 
-
-
 \# ip netns exec 7852 ip route add 192.168.0.0/16 dev eth0 via 192.168.1.1
-
-
 
 \# ip netns exec 7852 ip route //添加成功
 
-
-
 192.168.0.0/16 via 192.168.1.1 dev eth0
-
-
 
 同理，在其它宿主机进行相应的配置，新建容器并使用pipework添加虚拟网卡桥接到br0，如此创建的容器间就可以相互通信了。
 
+1）重启网卡报错如下：
 
+
+
+\# systemctl restart network
+
+
+
+......
+
+
+
+Nov 23 22:09:08 hdcoe02 systemd\\ network.service: control process exited, code=exited status=1
+
+
+
+Nov 23 22:09:08 hdcoe02 systemd Failed to start LSB: Bring up/down networking.
+
+
+
+Nov 23 22:09:08 hdcoe02 systemd\\Unit network.service entered failed state./span
+
+解决办法：
+
+
+
+\# systemctl enable NetworkManager-wait-online.service
+
+
+
+\# systemctl stop NetworkManager
+
+
+
+\# systemctl restart network.service
+
+
+
+2）创建容器，出现下面告警
+
+
+
+WARNING: IPv4 forwarding is disabled. Networking will not work.
+
+
+
+解决办法：
+
+
+
+\#vim /usr/lib/sysctl.d/00-system.conf
+
+
+
+添加如下代码：
+
+
+
+net.ipv4.ip\\\_forward=1
+
+
+
+重启network服务
+
+
+
+\# systemctl restart network
 
