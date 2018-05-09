@@ -50,13 +50,9 @@ d）绑定ip到 docker0
 
 在容器运行时，每个容器都会分配一个特定的虚拟机口并桥接到docker0。每个容器都会配置同docker0 ip相同网段的专用ip 地址，docker0的IP地址被用于所有容器的默认网关。
 
-
-
-
-
-
-
 一般启动的容器中ip默认是172.17.0.1/24网段的。
 
+\# docker run -t -i --name my-test centos /bin/bash
 
+\# docker inspect c5217f7bd44c \|grep IPAddress
 
