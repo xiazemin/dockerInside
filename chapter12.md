@@ -102,7 +102,7 @@ OPTIONS='--selinux-enabled --log-driver=journald -b=bridge0' //即添加-b=bridg
 
 \# service docker restart
 
-\# docker inspect --format='{{.NetworkSettings.IPAddress}}' 224facf8e054
+\# docker inspect --format='\{\{.NetworkSettings.IPAddress\}\}' 224facf8e054
 
 192.168.5.3
 
