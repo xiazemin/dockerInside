@@ -160,7 +160,7 @@ docker0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500
 
 inet 172.17.0.1 netmask 255.255.0.0 broadcast 0.0.0.0
 
-inet6 fe80::42:6fff:fe15:541e prefixlen 64 scopeid 0x20&lt;link&gt;
+inet6 fe80::42:6fff:fe15:541e prefixlen 64 scopeid 0x2 link
 
 ether 02:42:6f:15:54:1e txqueuelen 0 \\(Ethernet\\)
 
@@ -234,7 +234,7 @@ PING www.a.shifen.com \\(61.135.169.121\\) 56\\(84\\) bytes of data.
 
 关闭ip路由转发功能，容器即不能联网
 
-\\[iyunv@localhost ~\\]\\# echo 0 &gt; /proc/sys/net/ipv4/ip\\_forward
+\\[iyunv@localhost ~\\]\\# echo 0  /proc/sys/net/ipv4/ip\\_forward
 
 \\[iyunv@localhost ~\\]\\# cat /proc/sys/net/ipv4/ip\\_forward
 
