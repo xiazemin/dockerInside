@@ -62,65 +62,105 @@ d）绑定ip到 docker0
 
 \# cat /proc/sys/net/ipv4/ip\_forward  1
 
-
-
-
-
-　　一、创建容器使用特定范围的IP
-
-
-
-
-
-
+一、创建容器使用特定范围的IP
 
 Docker 会尝试寻找没有被主机使用的ip段，尽管它适用于大多数情况下，但是它不是万能的，有时候我们还是需要对ip进一步规划。
 
-
-
-
-
-
-
 Docker允许你管理docker0桥接或者通过-b选项自定义桥接网卡，需要安装bridge-utils软件包。操作流程如下：
-
-
-
-
-
-
 
 a）确保docker的进程是停止的
 
-
-
-
-
-
-
 b）创建自定义网桥
-
-
-
-
-
-
 
 c）给网桥分配特定的ip
 
-
-
-
-
-
-
 d）以-b的方式指定网桥
 
-
-
-
-
-
-
 具体操作过程如下（比如创建容器的时候，指定ip为192.168.5.1/24网段的）：
+
+\# ip link set dev docker0 down
+
+
+
+
+
+
+
+\# brctl delbr docker0
+
+
+
+
+
+
+
+\# brctl addbr bridge0
+
+
+
+
+
+\# ip addr add 192.168.5.1/24 dev bridge0 //注意，这个192.168.5.1就是所建容器的网关地址。通过docker inspect container\_id能查看到
+
+
+
+
+
+\# ip link set dev bridge0 up
+
+
+
+
+
+
+
+\# ip addr show bridge0
+
+
+
+
+
+\# vim /etc/sysconfig/docker //即将虚拟的桥接口由默认的docker0改为bridge0
+
+
+
+
+
+
+
+将
+
+
+
+
+
+
+
+OPTIONS='--selinux-enabled --log-driver=journald'
+
+
+
+
+
+
+
+改为
+
+
+
+
+
+
+
+OPTIONS='--selinux-enabled --log-driver=journald -b=bridge0' //即添加-b=bridge0
+
+
+
+
+
+\# service docker restart
+
+
+
+
 
