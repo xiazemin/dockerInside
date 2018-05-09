@@ -102,113 +102,81 @@ OPTIONS='--selinux-enabled --log-driver=journald -b=bridge0' //即添加-b=bridg
 
 \# service docker restart
 
-\# docker inspect --format='\{\{.NetworkSettings.IPAddress\}\}' 224facf8e054
-
-
-
-
-
-
+\# docker inspect --format='{{.NetworkSettings.IPAddress}}' 224facf8e054
 
 192.168.5.3
-
-
-
-
-
-
-
-
 
 然后创建容器，查看下容器ip是否为设定的192.168.5.1/24网段的
 
 \# brctl show
 
-
-
-
-
-
-
 bridge name bridge id STP enabled interfaces
-
-
-
-
-
-
 
 bridge0 8000.ba141fa20c91 no vethe7e227b
 
-
-
-
-
-
-
 vethf382771
 
-
-
-
-
-
-
-　　使用pipework给容器设置一个固定的ip
-
-
-
-
-
-
+使用pipework给容器设置一个固定的ip
 
 可以利用pipework为容器指定一个固定的ip，操作方法非常简单，如下：
 
-
-
-
-
-
-
 \# brctl addbr br0
-
-
-
-
-
-
 
 \# ip link set dev br0 up
 
-
-
-
-
 \# ip addr add 192.168.114.1/24 dev br0 //这个ip相当于br0网桥的网关ip，可以随意设定。
-
-
-
-
-
-
 
 \# docker run -ti -d --net=none --name=my-test1 docker.io/nginx /bin/bash
 
-
-
-
-
 \# pipework br0 -i eth0 my-test1 192.168.114.100/24@192.168.114.1
-
-
 
 \# docker exec -ti my-test1 /bin/bash
 
-
-
-
-
 \# ip addr
+
+my-test1容器和my-test2容器在同一个宿主机上，所以它们固定后的ip是可以相互ping通的，如果是在不同的宿主机上，则就无法ping通！
+
+
+
+
+
+
+
+所以说：
+
+
+
+
+
+
+
+这样使用pipework指定固定ip的容器，在同一个宿主机下的容器间的ip是可以相互ping通的，但是跨主机的容器通过这种方式固定ip后就不能ping通了。
+
+
+
+
+
+
+
+跨主机的容器间的通信可以看下面的介绍。
+
+
+
+
+
+
+
+　　二、不同主机间的容器通信（pipework config docker container ip）
+
+
+
+
+
+
+
+我的centos7测试机上的docker是yum安装的，默认自带pipework工具，所以就不用在另行安装它了。
+
+
 
 
 
