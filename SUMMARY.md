@@ -47,4 +47,5 @@
 * [docker配置独立桥接IP](dockerpei-zhidu-li-qiao-jie-ip.md)
 * [xhyve](xhyve.md)
 * [Docker For Mac没有docker0网桥](docker-for-macmei-you-docker0-wang-qiao.md)
+* [Mac安装iproute2/dig/traceroute](macan-zhuang-iproute2-dig-traceroute.md)
 
