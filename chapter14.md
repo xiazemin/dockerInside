@@ -14,3 +14,11 @@ e19d371e8b77        none                null                local
 
 $docker network inspect bridge
 
+$ifconfig docker0 172.17.0.1
+
+ifconfig: interface docker0 does not exist
+
+$docker network create ....
+
+
+
