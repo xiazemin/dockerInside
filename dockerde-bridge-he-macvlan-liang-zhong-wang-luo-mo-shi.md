@@ -40,5 +40,21 @@ Docker利用 veth pair技术，在宿主机上创建了两个虚拟网络接口 
 
 ![](/assets/importsnat1.png)
 
+macvlan模式    
 
+
+
+macvlan本身是linxu kernel的模块，本质上是一种网卡虚拟化技术。其功能是允许在同一个物理网卡上虚拟出多个网卡，通过不同的MAC地址在数据链路层进行网络数据的转发，一块网卡上配置多个 MAC 地址（即多个 interface），每个interface可以配置自己的IP，Docker的macvlan网络实际上就是使用了Linux提供的macvlan驱动
+
+
+
+因为多个MAC地址的网络数据包都是从同一块网卡上传输，所以需要打开网卡的混杂模式ip link set eth0 promisc on;
+
+
+
+创建macvlan网络不同于桥接模式，需要指定网段和网关，并且都得是真实存在的，例如docker network create -d macvlan --subnet=10.9.8.0/24 --gateway=10.9.8.254 -o parent=eth0 macvlan-test
+
+
+
+macvlan模式不依赖网桥，所以brctl show查看并没有创建新的bridge，但是查看容器的网络，会看到虚拟网卡对应了一个interface是2
 
