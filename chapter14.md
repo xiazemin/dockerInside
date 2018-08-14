@@ -20,5 +20,21 @@ ifconfig: interface docker0 does not exist
 
 $docker network create ....
 
+Docker for Mac
 
+$ docker --version
+
+Docker version 1.13.0, build 49bf474
+
+
+
+$ docker-compose --version
+
+docker-compose version 1.10.0, build 4bd6f1a
+
+
+
+$ docker-machine --version
+
+docker-machine version 0.9.0, build 15fd4c7
 
