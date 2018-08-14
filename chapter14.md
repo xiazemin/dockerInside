@@ -1,2 +1,16 @@
-# chapter14
+# 查看网络
+
+$docker network ls
+
+NETWORK ID          NAME                DRIVER              SCOPE
+
+5c50c967bbfd        bridge              bridge              local
+
+34033bd99114        docker0             bridge              local
+
+8edecb0e4997        host                host                local
+
+e19d371e8b77        none                null                local
+
+$docker network inspect bridge
 
