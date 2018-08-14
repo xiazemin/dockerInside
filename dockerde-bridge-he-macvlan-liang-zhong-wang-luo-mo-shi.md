@@ -56,3 +56,9 @@ macvlan模式不依赖网桥，所以brctl show查看并没有创建新的bridge
 
 ![](/assets/importmacvlan2.png)
 
+可见，容器的 eth0 就是宿主机的eth0通过macvlan虚拟出来的interface。容器的interface直接与主机的网卡连接，这种方案使得容器无需通过NAT和端口映射就能与外网直接通信（只要有网关），在网络上看起来与其他独立主机没有区别。当前网络结构如图所示：
+
+![](/assets/importmacvlan3.png)
+
+
+
