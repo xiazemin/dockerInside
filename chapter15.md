@@ -130,3 +130,25 @@ WantedBy=multi-user.target
 
 这个时候在other\_args中添加的参数就有效了。
 
+在启动 Docker 服务的时候，使用 -b BRIDGE 或 --bridge=BRIDGE 来指定使用的网桥。
+
+如果服务已经运行，那需要先停止服务，并删除旧的网桥。
+
+$ sudo systemctl stop docker
+
+$ sudo ip link set dev docker0 down
+
+$ sudo brctl delbr docker0
+
+然后创建一个网桥 bridge0 。
+
+$ sudo brctl addbr bridge0
+
+$ sudo ip addr add 192.168.5.1/24 dev bridge0
+
+$ sudo ip link set dev bridge0 up
+
+查看确认网桥创建并启动。
+
+$ ip addr show bridge0
+
