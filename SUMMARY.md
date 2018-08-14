@@ -50,4 +50,5 @@
 * [Mac安装iproute2/dig/traceroute](macan-zhuang-iproute2-dig-traceroute.md)
 * [使用Docker的macvlan为容器提供桥接网络及跨主机通讯](shi-yong-docker-de-macvlan-wei-rong-qi-ti-gong-qiao-jie-wang-luo-ji-kua-zhu-ji-tong-xun.md)
 * [Docker的bridge和macvlan两种网络模式](dockerde-bridge-he-macvlan-liang-zhong-wang-luo-mo-shi.md)
+* [Docker容器通过独立IP暴露给局域网的方法](dockerrong-qitong-guo-du-li-ip-bao-lu-gei-ju-yu-wang-de-fang-fa.md)
 
