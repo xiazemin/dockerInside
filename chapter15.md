@@ -30,29 +30,45 @@ NM\_CONTROLLED="no"
 
 重启网络服务
 
-
-
 service network restart
 
 查看网桥
-
-
 
 \[black@test opt\]$ brctl show
 
 bridge name     bridge id               STP enabled     interfaces
 
-br0             8000.32e7297502be       no              
+br0             8000.32e7297502be       no
 
 virbr0          8000.000000000000       yes
 
 接下来我们需要重新启动docker，可以在启动docker服务进程时使用以下两种方式：
 
-
-
 第一种：-b 参数指定网桥
 
+docker -d -b br0
 
+docker run -ti --rm centos:latest
+
+第二种：修改/etc/sysconfig/docker文件
+
+我在进行这种操作的时候遇到了一点问题，我修改了/etc/sysconfig/docker文件
+
+
+
+\[root@test opt\]\# vi /etc/sysconfig/docker 
+
+\# /etc/sysconfig/docker
+
+\#
+
+\# Other arguments to pass to the docker daemon process
+
+\# These will be parsed by the sysv initscript and appended
+
+\# to the arguments list passed to docker -d
+
+ 
 
 
 
