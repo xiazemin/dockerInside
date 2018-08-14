@@ -51,4 +51,5 @@
 * [使用Docker的macvlan为容器提供桥接网络及跨主机通讯](shi-yong-docker-de-macvlan-wei-rong-qi-ti-gong-qiao-jie-wang-luo-ji-kua-zhu-ji-tong-xun.md)
 * [Docker的bridge和macvlan两种网络模式](dockerde-bridge-he-macvlan-liang-zhong-wang-luo-mo-shi.md)
 * [Docker容器通过独立IP暴露给局域网的方法](dockerrong-qitong-guo-du-li-ip-bao-lu-gei-ju-yu-wang-de-fang-fa.md)
+* [为Docker容器指定自定义网段的固定IP/静态IP地址](wei-docker-rong-qi-zhi-ding-zi-ding-yi-wang-duan-de-gu-ding-ip-jing-tai-ip-di-zhi.md)
 
