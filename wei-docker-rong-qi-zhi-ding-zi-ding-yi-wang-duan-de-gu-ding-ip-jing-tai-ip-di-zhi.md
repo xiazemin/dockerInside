@@ -40,21 +40,27 @@ iptables -t nat -I POSTROUTING -o eth0 -d  0.0.0.0/0 -s 172.18.0.10  -j SNAT --t
 
 需要使用Docker虚拟化Hadoop/Spark等测试环境，并且要可以对外提供服务，要求是完全分布式的部署（尽量模拟生产环境）。那么我们会遇到几个问题：
 
-
-
 Container IP 是动态分配的
-
-
 
 Container IP 是内部IP，外部无法访问（如对外提供HDFS服务可能会遇到Client无法访问DataNode，因为DataNode注册的是内部IP）
 
-
-
 针对第一个问题有不少的方案，可以指定静态的IP，对第二个问题，我们可以使用--net=host解决，但这会导致对外只有一个IP，集群各个Slave的端口都要修改。至于pipework简单地看了下，好像也解决不了。
-
-
 
 所以目前看上去只能使用看上去不是很优雅的方案解决:\*为Docker宿主网卡绑定多个IP，把这些IP分配给不同的容器。
 
+//eth1网卡是可以与外部交互，所以我们添加IP到这个网卡上
 
+//第一步：添加了两个IP
+
+root@default:~\# ifconfig eth1:0 192.168.99.10 netmask 255.255.255.0 up
+
+root@default:~\# ifconfig eth1:1 192.168.99.11 netmask 255.255.255.0 up
+
+//再次查看，多了两个IP
+
+/第二步：运行容器，指定IP，这里的示例容器开启的SSH服务，后面拿它测试
+
+root@default:~\# docker run -d -p 192.168.99.10:222:22 --name ssh1 gudaoxuri/scala-2.11-env
+
+root@default:~\# docker run -d -p 192.168.99.11:222:22 --name ssh2 gudaoxuri/scala-2.11-env
 
