@@ -60,5 +60,11 @@ macvlan模式不依赖网桥，所以brctl show查看并没有创建新的bridge
 
 ![](/assets/importmacvlan3.png)
 
+macvlan会独占主机的网卡，也就是说一个网卡只能创建一个macvlan 网络，否则会报错，为了能支持更多的macvlan网络，macvlan不仅可以连接到interface（如eth0），也可以连接到网卡的子接口sub-interface（如eth0.xxx）。
 
+VLAN 是现代网络常用的网络虚拟化技术，它可以将物理的二层网络划分成多达 4094 个逻辑网络，这些逻辑网络在二层上是隔离的，每个逻辑网络（即 VLAN）由 VLAN ID 区分，VLAN ID 的取值为 1-4094。Linux 的网卡也能支持 VLAN（apt-get install vlan），同一个 interface可以收发多个VLAN 的数据包，不过前提是要创建 VLAN的 sub-interface。比如希望 eth0同时支持 VLAN10 和 VLAN20，则需创建 sub-interface eth0.10 和 eth0.20。创建的子接口是可以看到的，如下如
+
+![](/assets/importvlan.png)
+
+在交换机上，如果某个端口只能收发单个VLAN的数据，该port为Access模式，如果支持多个VLAN，则为Trunk模式，要实现多个macvlan，网卡要接在交换机的 trunk口上。
 
