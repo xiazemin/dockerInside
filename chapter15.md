@@ -54,13 +54,9 @@ docker run -ti --rm centos:latest
 
 我在进行这种操作的时候遇到了一点问题，我修改了/etc/sysconfig/docker文件
 
-
-
-\[root@test opt\]\# vi /etc/sysconfig/docker 
+\[root@test opt\]\# vi /etc/sysconfig/docker
 
 \# /etc/sysconfig/docker
-
-\#
 
 \# Other arguments to pass to the docker daemon process
 
@@ -68,7 +64,85 @@ docker run -ti --rm centos:latest
 
 \# to the arguments list passed to docker -d
 
+接着使用service docker start启动docker服务，但是other\_args并不生效，在centos7下servicer docker start仍然会采用systemctl start docker.service命令来运行，于是我就打开/usr/lib/systemd/system/docker.service查看
+
+
+
+\[root@test opt\]\# vi /lib/systemd/system/docker.service 
+
+\[Unit\]
+
+Description=Docker Application Container Engine
+
+Documentation=https://docs.docker.com
+
+After=network.target docker.socket
+
+Requires=docker.socket
+
+\[Service\]
+
+ExecStart=/usr/bin/docker -d  -H fd://
+
+MountFlags=slave
+
+LimitNOFILE=1048576
+
+LimitNPROC=1048576
+
+LimitCORE=infinity
+
  
 
+\[Install\]
 
+WantedBy=multi-user.target
+
+发现ExecStart一项并没有运行参数，于是将ExecStart改为/usr/bin/docker -d -b br0 -H fd://，运行docker服务，启动一个容器发现能够成功使用br0网桥。
+
+
+
+-------------------------------------------
+
+
+
+在网上看到了一种更好的方法，将docker.service改为如下
+
+
+
+
+
+\[black@test ~\]$ vi /usr/lib/systemd/system/docker.service 
+
+\[Unit\]
+
+Description=Docker Application Container Engine
+
+Documentation=https://docs.docker.com
+
+After=network.target docker.socket
+
+Requires=docker.socket
+
+\[Service\]
+
+EnvironmentFile=-/etc/sysconfig/docker
+
+ExecStart=/usr/bin/docker -d $other\_args  -H fd://
+
+MountFlags=slave
+
+LimitNOFILE=1048576
+
+LimitNPROC=1048576
+
+LimitCORE=infinity
+
+ 
+
+\[Install\]
+
+WantedBy=multi-user.target
+
+这个时候在other\_args中添加的参数就有效了。
 
