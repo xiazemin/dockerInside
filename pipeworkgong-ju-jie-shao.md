@@ -1,3 +1,11 @@
+https://github.com/jpetazzo/pipework
+
+https://github.com/weaveworks/weave
+
+https://github.com/coreos/flannel
+
+
+
 Docker同样有着很多不完善的地方，网络方面就是Docker比较薄弱的部分。因此，我们有必要深入了解Docker的网络知识，以满足更高的网络需求。本文首先介绍了Docker自身的4种网络工作方式，然后通过3个样例 —— 将Docker容器配置到本地网络环境中、单主机Docker容器的VLAN划分、多主机Docker容器的VLAN划分，演示了如何使用pipework帮助我们进行复杂的网络设置，以及pipework是如何工作的。
 
 1. Docker的4种网络模式
@@ -70,124 +78,53 @@ docker run -d --name web -p 80:80 fmzhen/simpleweb
 
 . pipework的使用以及源码分析
 
-
-
 Docker自身的网络功能比较简单，不能满足很多复杂的应用场景。因此，有很多开源项目用来改善Docker的网络功能，如pipework、weave、flannel等。这里，就先介绍一下pipework的使用和工作原理。
-
-
-
-
-
-
 
 pipework是由Docker的工程师Jérôme Petazzoni开发的一个Docker网络配置工具，由200多行shell实现，方便易用。下面用三个场景来演示pipework的使用和工作原理。
 
-
-
-
-
-
-
 2.1 将Docker容器配置到本地网络环境中
-
-
 
 为了使本地网络中的机器和Docker容器更方便的通信，我们经常会有将Docker容器配置到和主机同一网段的需求。这个需求其实很容易实现，我们只要将Docker容器和主机的网卡桥接起来，再给Docker容器配上IP就可以了。
 
-
-
-
-
-
-
 下面我们来操作一下，我主机A地址为10.10.101.105/24,网关为10.10.101.254,需要给Docker容器的地址配置为10.10.101.150/24。在主机A上做如下操作：
-
-
-
-
-
-
 
 \\#安装pipework
 
-
-
-git clone https://github.com/jpetazzo/pipework
-
-
+git clone [https://github.com/jpetazzo/pipework](https://github.com/jpetazzo/pipework)
 
 cp ~/pipework/pipework /usr/local/bin/
 
-
-
 \\#启动Docker容器。
-
-
 
 docker run -itd --name test1 ubuntu /bin/bash
 
-
-
 \\#配置容器网络，并连到网桥br0上。网关在IP地址后面加@指定。
-
-
 
 \\#若主机环境中存在dhcp服务器，也可以通过dhcp的方式获取IP
 
-
-
 \\#pipework br0 test1 dhcp
-
-
 
 pipework br0 test1 10.10.101.150/24@10.10.101.254
 
-
-
 \\#将主机eth0桥接到br0上，并把eth0的IP配置在br0上。这里由于是远程操作，中间网络会断掉，所以放在一条命令中执行。
-
-
 
 ip addr add 10.10.101.105/24 dev br0; \
 
-
-
 ip addr del 10.10.101.105/24 dev eth0; \
-
-
 
 brctl addif br0 eth0; \
 
-
-
 ip route del default; \
-
-
 
 ip route add default gw 10.10.101.254 dev br0
 
-
-
 完成上述步骤后，我们发现Docker容器已经可以使用新的IP和主机网络里的机器相互通信了。
-
-
-
-
-
-
 
 pipework工作原理分析
 
-
-
 那么容器到底发生了哪些变化呢？我们docker attach到test1上，发现容器中多了一块eth1的网卡，并且配置了10.10.101.150/24的IP，而且默认路由也改为了10.10.101.254。这些都是pipework帮我们配置的。通过查看源代码，可以发现pipework br0 test1 10.10.101.150/24@10.10.101.254是由以下命令完成的（这里只列出了具体执行操作的代码）。
 
-
-
-
-
 ```
-
 \\#创建br0网桥
 
 
@@ -261,65 +198,29 @@ ip netns exec $NSPID ip route delete default
 
 
 ip netns exec $NSPID ip route add $GATEWAY/32 dev $CONTAINER\\_IFNAME
-
 ```
 
 首先pipework检查是否存在br0网桥，若不存在，就自己创建。若以"ovs"开头，就会创建OpenVswitch网桥，以"br"开头，创建Linux bridge。
 
-
-
 创建veth pair设备，用于为容器提供网卡并连接到br0网桥。
-
-
 
 使用docker inspect找到容器在主机中的PID，然后通过PID将容器的网络命名空间链接到/var/run/netns/目录下。这么做的目的是，方便在主机上使用ip netns命令配置容器的网络。因为，在Docker容器中，我们没有权限配置网络环境。
 
-
-
 将之前创建的veth pair设备分别加入容器和网桥中。在容器中的名称默认为eth1，可以通过pipework的-i参数修改该名称。
-
-
 
 然后就是配置新网卡的IP。若在IP地址的后面加上网关地址，那么pipework会重新配置默认路由。这样容器通往外网的流量会经由新配置的eth1出去，而不是通过eth0和docker0。\\(若想完全抛弃自带的网络设置，在启动容器的时候可以指定--net=none\\)
 
-
-
 以上就是pipework配置Docker网络的过程，这和Docker的bridge模式有着相似的步骤。事实上，Docker在实现上也采用了相同的底层机制。
-
-
-
-
-
-
 
 通过源代码，可以看出，pipework通过封装Linux上的ip、brctl等命令，简化了在复杂场景下对容器连接的操作命令，为我们配置复杂的网络拓扑提供了一个强有力的工具。当然，如果想了解底层的操作，我们也可以直接使用这些Linux命令来完成工作，甚至可以根据自己的需求，添加额外的功能。
 
-
-
-
-
-
-
 2.2 单主机Docker容器VLAN划分
-
-
 
 pipework不仅可以使用Linux bridge连接Docker容器，还可以与OpenVswitch结合，实现Docker容器的VLAN划分。下面，就来简单演示一下，在单机环境下，如何实现Docker容器间的二层隔离。
 
-
-
-
-
-
-
 为了演示隔离效果，我们将4个容器放在了同一个IP网段中。但实际他们是二层隔离的两个网络，有不同的广播域。
 
-
-
-
 ```
-
-
 \\#在主机A上创建4个Docker容器，test1、test2、test3、test4
 
 
@@ -363,40 +264,17 @@ pipework ovs0 test3 192.168.0.3/24 @200
 pipework ovs0 test4 192.168.0.4/24 @200
 ```
 
-
 完成上述操作后，使用docker attach连到容器中，然后用ping命令测试连通性，发现test1和test2可以相互通信，但与test3和test4隔离。这样，一个简单的VLAN隔离容器网络就已经完成。
-
-
-
-
-
-
 
 由于OpenVswitch本身支持VLAN功能，所以这里pipework所做的工作和之前介绍的基本一样，只不过将Linux bridge替换成了OpenVswitch，在将veth pair的一端加入ovs0网桥时，指定了tag。底层操作如下：
 
-
-
-
-
-
-
 ovs-vsctl add-port ovs0 veth\\* tag=100
-
-
 
 2.3 多主机Docker容器的VLAN划分
 
-
-
 上面介绍完了单主机上VLAN的隔离，下面我们将情况延伸到多主机的情况。有了前面两个例子做铺垫，这个也就不难了。为了实现这个目的，我们把宿主机上的网卡桥接到各自的OVS网桥上，然后再为容器配置IP和VLAN就可以了。我们实验环境如下，主机A和B各有一块网卡eth0，IP地址分别为10.10.101.105/24、10.10.101.106/24。在主机A上创建两个容器test1、test2，分别在VLAN 100和VLAN 200上。在主机B上创建test3、test4，分别在VLAN 100和VLAN 200 上。最终，test1可以和test3通信，test2可以和test4通信。
 
-
 ```
-
-
-
-
-
 \\#在主机A上
 
 
@@ -500,27 +378,9 @@ ip route del default; \
 
 
 ip route add default gw 10.10.101.254 dev ovs0
-
 ```
 
-
-
-
 完成上面的步骤后，主机A上的test1和主机B上的test3容器就划分到了一个VLAN中，并且与主机A上的test2和主机B上的test4隔离（主机eth0网卡需要设置为混杂模式，连接主机的交换机端口应设置为trunk模式，即允许VLAN 100和VLAN 200的包通过）。拓扑图如下所示（省去了Docker默认的eth0网卡和主机上的docker0网桥）：
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 除此之外，pipework还支持使用macvlan设备、设置网卡MAC地址等功能。不过，pipework有一个缺陷，就是配置的容器在关掉重启后，之前的设置会丢失。
 
