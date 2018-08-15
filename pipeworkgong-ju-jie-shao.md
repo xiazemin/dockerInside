@@ -186,7 +186,7 @@ pipework工作原理分析
 
 
 
-
+```
 
 \\#创建br0网桥
 
@@ -262,7 +262,7 @@ ip netns exec $NSPID ip route delete default
 
 ip netns exec $NSPID ip route add $GATEWAY/32 dev $CONTAINER\\_IFNAME
 
-
+```
 
 首先pipework检查是否存在br0网桥，若不存在，就自己创建。若以"ovs"开头，就会创建OpenVswitch网桥，以"br"开头，创建Linux bridge。
 
