@@ -317,7 +317,7 @@ pipework不仅可以使用Linux bridge连接Docker容器，还可以与OpenVswit
 
 
 
-
+```
 
 
 \\#在主机A上创建4个Docker容器，test1、test2、test3、test4
@@ -361,7 +361,7 @@ pipework ovs0 test3 192.168.0.3/24 @200
 
 
 pipework ovs0 test4 192.168.0.4/24 @200
-
+```
 
 
 完成上述操作后，使用docker attach连到容器中，然后用ping命令测试连通性，发现test1和test2可以相互通信，但与test3和test4隔离。这样，一个简单的VLAN隔离容器网络就已经完成。
@@ -389,6 +389,120 @@ ovs-vsctl add-port ovs0 veth\\* tag=100
 
 
 上面介绍完了单主机上VLAN的隔离，下面我们将情况延伸到多主机的情况。有了前面两个例子做铺垫，这个也就不难了。为了实现这个目的，我们把宿主机上的网卡桥接到各自的OVS网桥上，然后再为容器配置IP和VLAN就可以了。我们实验环境如下，主机A和B各有一块网卡eth0，IP地址分别为10.10.101.105/24、10.10.101.106/24。在主机A上创建两个容器test1、test2，分别在VLAN 100和VLAN 200上。在主机B上创建test3、test4，分别在VLAN 100和VLAN 200 上。最终，test1可以和test3通信，test2可以和test4通信。
+
+
+```
+
+
+
+
+
+\\#在主机A上
+
+
+
+\\#创建Docker容器
+
+
+
+docker run -itd --name test1 ubuntu /bin/bash
+
+
+
+docker run -itd --name test2 ubuntu /bin/bash
+
+
+
+\\#划分VLAN
+
+
+
+pipework ovs0 test1 192.168.0.1/24 @100
+
+
+
+pipework ovs0 test2 192.168.0.2/24 @200
+
+
+
+\\#将eth0桥接到ovs0上
+
+
+
+ip addr add 10.10.101.105/24 dev ovs0; \
+
+
+
+ip addr del 10.10.101.105/24 dev eth0; \
+
+
+
+ovs-vsctl add-port ovs0 eth0; \
+
+
+
+ip route del default; \
+
+
+
+ip route add default gw 10.10.101.254 dev ovs0
+
+
+
+
+
+\\#在主机B上
+
+
+
+\\#创建Docker容器
+
+
+
+docker run -itd --name test3 ubuntu /bin/bash
+
+
+
+docker run -itd --name test4 ubuntu /bin/bash
+
+
+
+\\#划分VLAN
+
+
+
+pipework ovs0 test1 192.168.0.3/24 @100
+
+
+
+pipework ovs0 test2 192.168.0.4/24 @200
+
+
+
+\\#将eth0桥接到ovs0上
+
+
+
+ip addr add 10.10.101.106/24 dev ovs0; \
+
+
+
+ip addr del 10.10.101.106/24 dev eth0; \
+
+
+
+ovs-vsctl add-port ovs0 eth0; \
+
+
+
+ip route del default; \
+
+
+
+ip route add default gw 10.10.101.254 dev ovs0
+
+```
+
 
 
 
