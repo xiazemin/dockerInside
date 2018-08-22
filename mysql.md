@@ -1,192 +1,238 @@
-二、mysql-proxy实现读写分离
+所使用服务器列表
 
-1、安装mysql-proxy
 
-实现读写分离是有lua脚本实现的，现在mysql-proxy里面已经集成，无需再安装
 
-下载：[http://dev.mysql.com/downloads/mysql-proxy/](http://dev.mysql.com/downloads/mysql-proxy/)
+tpl01	NAT	29. 159	mysql\(源码）	/etc/my.cnf	提供mysql服务（主）	yw009	数据库主从+代理搭建	mysql 5.6.39
 
-Shell
+tpl02	NAT	29. 152	mysql\(源码）	/etc/my.cnf	mysql服务（从）	yw009	数据库主从+代理搭建	mysql 5.6.39
 
-tar zxvf mysql-proxy-0.8.3-linux-glibc2.3-x86-64bit.tar.gz
+tpl03	NAT	29. 160	mysql-proxy	/usr/local/mysql-proxy	代理服务	yw009	数据库主从+代理搭建	0.8.5
 
-mv mysql-proxy-0.8.3-linux-glibc2.3-x86-64bit /usr/local/mysql-proxy
+work	NAT	29. 158	\	\	mysql客户端	yw009	数据库主从+代理搭建	\
 
-2、配置mysql-proxy，创建主配置文件
+步骤一：安装mysql-proxy
 
-Shell
 
-cd /usr/local/mysql-proxy
 
-mkdir lua \#创建脚本存放目录
+1\)下载mysql-proxy 在github.com 上下载0.8.5版
 
-mkdir logs \#创建日志目录
 
-cp share/doc/mysql-proxy/rw-splitting.lua ./lua \#复制读写分离配置文件
 
-cp share/doc/mysql-proxy/admin-sql.lua ./lua \#复制管理脚本
+16 tar -xvf mysql-proxy-rel-0.8.5.tar
 
-vi /etc/mysql-proxy.cnf   \#创建配置文件
 
-\[mysql-proxy\]
 
-user=root \#运行mysql-proxy用户
+18 yum -y install lua
 
-admin-username=proxy \#主从mysql共有的用户
 
-admin-password=123.com \#用户的密码
 
-proxy-address=192.168.0.204:4000 \#mysql-proxy运行ip和端口，不加端口，默认4040
+54 yum install lua-devel
 
-proxy-read-only-backend-addresses=192.168.0.203 \#指定后端从slave读取数据
 
-proxy-backend-addresses=192.168.0.202 \#指定后端主master写入数据
 
-proxy-lua-script=/usr/local/mysql-proxy/lua/rw-splitting.lua \#指定读写分离配置文件位置
+33 yum install cmake
 
-admin-lua-script=/usr/local/mysql-proxy/lua/admin-sql.lua \#指定管理脚本
 
-log-file=/usr/local/mysql-proxy/logs/mysql-proxy.log \#日志位置
 
-log-level=info \#定义log日志级别，由高到低分别有\(error\|warning\|info\|message\|debug\)
+34 yum install make
 
-daemon=true    \#以守护进程方式运行
 
-keepalive=true \#mysql-proxy崩溃时，尝试重启
 
-保存退出！
+41 yum -y install gcc openssl-devel pcre-devel zlib-devel ncurses-devel
 
-chmod 660 /etc/mysql-porxy.cnf
 
-3、修改读写分离配置文件
 
-Shell
+44 yum -y install libtool
 
-vi /usr/local/mysql-proxy/lua/rw-splitting.lua
 
-if not proxy.global.config.rwsplit then
 
-proxy.global.config.rwsplit = {
+63 yum -y install gcc gcc-c++
 
-min\_idle\_connections = 1, \#默认超过4个连接数时，才开始读写分离，改为1
 
-max\_idle\_connections = 1, \#默认8，改为1
 
-is\_debug = false
+79 yum search flex
 
-}
 
-end
 
-4、启动mysql-proxy
+80 yum install flex.x86\_64
 
-Shell
 
-/usr/local/mysql-proxy/bin/mysql-proxy --defaults-file=/etc/mysql-proxy.cnf
 
-netstat -tupln \| grep 4000 \#已经启动
+51 yum install mysql-devel
 
-tcp 0 0 192.168.0.204:4000 0.0.0.0:\* LISTEN 1264/mysql-proxy
 
-关闭mysql-proxy使用：killall -9 mysql-proxy
 
-5、测试读写分离
+68 yum -y install glib2-devel
 
-1&gt;.在主服务器创建proxy用户用于mysql-proxy使用，从服务器也会同步这个操作
 
-Shell
 
-mysql&gt; grant all on \*.\* to 'proxy'@'192.168.0.204' identified by '123.com';
+70 yum -y install libevent-devel
 
-2&gt;.使用客户端连接mysql-proxy
 
-Shell
 
-mysql -u proxy -h 192.168.0.204 -P 4000 -p123.com
+94 ./autogen.sh
 
-创建数据库和表，这时的数据只写入主mysql，然后再同步从slave，可以先把slave的关了，看能不能写入，这里我就不测试了，下面测试下读的数据！
 
-Shell
 
-mysql&gt; create table user \(number INT\(10\),name VARCHAR\(255\)\);
+96 ./configure --prefix=/usr/local/mysql-proxy
 
-mysql&gt; insert into test values\(01,'zhangsan'\);
 
-mysql&gt; insert into user values\(02,'lisi'\);
 
-3&gt;.登陆主从mysq查看新写入的数据如下，
+make
 
-Shell
 
-mysql&gt; use test;
 
-Database changed
+make install
 
-mysql&gt; select \* from user;
 
-+--------+----------+
 
-\| number \| name \|
+79 yum search flex
 
-+--------+----------+
 
-\| 1 \| zhangsan \|
 
-\| 2 \| lisi \|
+80 yum install flex.x86\_64
 
-+--------+----------+
 
-4&gt;.再登陆到mysql-proxy，查询数据，看出能正常查询
 
-Shell
+126 mkdir /usr/local/mysql-proxy/lua
 
-mysql -u proxy -h 192.168.0.204 -P 4000 -p123.com
 
-mysql&gt; use test;
 
-mysql&gt; select \* from user;
+127 cp lib/rw-splitting.lua /usr/local/mysql-proxy/lua/
 
-+--------+----------+
 
-\| number \| name \|
 
-+--------+----------+
+128 cp lib/admin-sql.lua /usr/local/mysql-proxy/lua/
 
-\| 1 \| zhangsan \|
 
-\| 2 \| lisi \|
 
-+--------+----------+
+131 cp -r lib/proxy /usr/local/mysql-proxy/lua/
 
-5&gt;.登陆从服务器关闭mysql同步进程，这时再登陆mysql-proxy肯定会查询不出数据
 
-Shell
 
-slave stop；
+132 cd /usr/local/mysql-proxy/
 
-6&gt;.登陆mysql-proxy查询数据，下面看来，能看到表，查询不出数据
 
-Shell
 
-mysql&gt; use test;
+135 vim lua/rw-splitting.lua
 
-Database changed
 
-mysql&gt; show tables;
 
-+----------------+
+2\) 搭建数据库主从 Master \(tpl01\) ,Slave \(tpl02\) ；可参考其他篇博客
 
-\| Tables\_in\_test \|
 
-+----------------+
 
-\| user \|
+3）启动mysql-proxy服务
 
-+----------------+
 
-mysql&gt; select \* from user;
 
-ERROR 1146 \(42S02\): Table 'test.user' doesn't exist
+139 bin/mysql-proxy -P 192.168.29.160:3306 -b 192.168.29.159:3306 -r 192.168.29.152:3306 -s lua/rw-splitting.lua &
 
-配置成功！真正实现了读写分离的效果！
+
+
+启动后可确认监听状态：
+
+
+
+netstat -anptu \| grep mysql;
+
+
+
+为了每次开机后能够自动运行mysql-proxy,可以将相关操作写到/etc/rc.local配置文件内：
+
+
+
+步骤二： 测试读写分离
+
+
+
+1\) 在MySQL Master服务器上设置用户授权
+
+
+
+以root 用户为例，允许其从192.168.29.0/24 网段的客户机远程访问。首先登入Master服务器添加下列授权：
+
+
+
+mysql &gt; grant all on\*.\* to root@'192.168.29.%' identified by '123qwe';
+
+
+
+因为此前已配置mysql库的主从同步，Slave上的root授权会自动更新：
+
+
+
+2）从客户机work 访问MySQL数据库
+
+
+
+注意连接的是mysql-proxy服务器，而并不是Master或 Slave:
+
+
+
+测试数据库写入操作：
+
+
+
+mysql &gt; create database proxydb;
+
+
+
+mysql &gt; use proxydb;
+
+
+
+mysql &gt; create table proxytb\( id int\(4\), host varchar\(48\)\);
+
+
+
+mysql &gt; insert into proxytb values\(1, 'aa'\), \(2, 'bb'\);
+
+
+
+mysql &gt; select \* from proxytb;
+
+
+
+3\) 在 Master 和 Slave 确认新建的库，表
+
+
+
+4） 观察MySQL 代理访问的网络连接
+
+
+
+在 Master上可看到来自Slave 和proxy代理的网路连接：
+
+
+
+netstat -anptu \| grep mysql
+
+
+
+在Proxy代理上 可以看到与MySQL读，写服务器的网络连接：
+
+
+
+netstat -anptu \| grep mysql
+
+
+
+5\) 怎么才能确定读的数据是确实无疑 来自从数据库呢？
+
+
+
+可以 使用 root 用户登入 slave 修改一条记录（这样主从数据库数据就不一致了，我们方便观察）
+
+
+
+mysql&gt; update proxytb set host='ee' where id=2;
+
+
+
+在 客户机work 上 连接mysql 查看数据：
+
+
+
+mysql &gt; select \* from proxytb;
 
