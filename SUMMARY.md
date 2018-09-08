@@ -65,4 +65,5 @@
 * [Docker 使用 Linux namespace 隔离容器的运行环境](docker-shi-yong-linux-namespace-ge-li-rong-qi-de-yun-xing-huan-jing.md)
 * [namespace结构](namespacejie-gou.md)
 * [namespace来隔离system](namespacelai-ge-li-system.md)
+* [namespace 系统调用](namespace-xi-tong-diao-yong.md)
 
