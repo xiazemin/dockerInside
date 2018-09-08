@@ -61,4 +61,5 @@
 * [linux namespace](mysql.md)
 * [namespace 进程](namespace-jin-cheng.md)
 * [Pid NameSpace](pid-namespace.md)
+* [多个进程共享一个pid结构](duo-ge-jin-cheng-gong-xiang-yi-ge-pid-jie-gou.md)
 
