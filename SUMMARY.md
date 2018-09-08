@@ -58,5 +58,6 @@
 * [pipework](pipework.md)
 * [在MacOS下，Docker　images保存在哪个路径下](zai-macos-xia-ff0c-docker-images-bao-cun-zai-na-ge-lu-jing-xia.md)
 * [清理Docker占用的磁盘](qing-li-docker-zhan-yong-de-ci-pan.md)
-* [mysql](mysql.md)
+* [linux namespace](mysql.md)
+* [namespace 进程](namespace-jin-cheng.md)
 
