@@ -66,4 +66,5 @@
 * [namespace结构](namespacejie-gou.md)
 * [namespace来隔离system](namespacelai-ge-li-system.md)
 * [namespace 系统调用](namespace-xi-tong-diao-yong.md)
+* [linux namespace常用命令](linux-namespacechang-yong-ming-ling.md)
 
