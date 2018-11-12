@@ -38,5 +38,7 @@ $docker ps
 
 $docker stop 2a4a720bd418
 
+$sudo docker rmi 6b362a9f73eb
 
+Error response from daemon: conflict: unable to delete 6b362a9f73eb \(cannot be forced\) - image has dependent child images
 
