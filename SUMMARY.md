@@ -68,4 +68,5 @@
 * [namespace 系统调用](namespace-xi-tong-diao-yong.md)
 * [linux namespace常用命令](linux-namespacechang-yong-ming-ling.md)
 * [network namespace](network-namespace.md)
+* [docker 删除image](docker-shan-chu-image.md)
 
