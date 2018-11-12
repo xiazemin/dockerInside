@@ -61,3 +61,9 @@ $ docker rmi 36b1e23becabc0b27c5787712dce019982c048665fd9e7e6cb032a46bcac510d
 
 Untagged: hub.c.163.com/library/swarm:latest
 
+$docker rmi 4a415e366388
+
+Error response from daemon: conflict: unable to delete 4a415e366388 \(must be forced\) - image is referenced in multiple repositories
+
+
+
