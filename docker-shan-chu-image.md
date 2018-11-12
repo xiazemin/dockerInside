@@ -65,5 +65,28 @@ $docker rmi 4a415e366388
 
 Error response from daemon: conflict: unable to delete 4a415e366388 \(must be forced\) - image is referenced in multiple repositories
 
+镜像有1个repo引用
 
+[?](https://www.jb51.net/article/132041.htm#)
+
+| 12 | `root@souyunku:~/mydocker# docker rmi 4acError response from daemon: conflict: unable to delete 4ac2d12f10cd (must be forced) - image is referencedinmultiple repositories` |
+| :--- | :--- |
+
+
+**2.解决方法**  
+
+
+**删除REPOSITORY**
+
+被删除的ImageID，这里存在1个REPOSITORY名字引用，解决方法如下：
+
+即删除时指定名称，而不是IMAGE ID。
+
+[?](https://www.jb51.net/article/132041.htm#)
+
+| 12 | `root@souyunku:~/mydocker# docker rmi souyunku/nginx:v1Untagged: souyunku/nginx:v1` |
+| :--- | :--- |
+
+
+再删除IMAGE ID就可以了：
 
