@@ -81,3 +81,5 @@ root@souyunku:~/mydocker\# docker rmi souyunku/nginx:v1Untagged: souyunku/nginx:
 
 再删除IMAGE ID就可以了：
 
+
+
