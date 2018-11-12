@@ -34,11 +34,9 @@ Error response from daemon: conflict: unable to delete 9772288ea0c5 \(must be fo
 
 必须先停止容器再删除镜像
 
+$docker ps
 
-
-
-
-
+$docker stop 2a4a720bd418
 
 
 
