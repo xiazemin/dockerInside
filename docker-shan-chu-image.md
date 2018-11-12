@@ -67,14 +67,9 @@ Error response from daemon: conflict: unable to delete 4a415e366388 \(must be fo
 
 镜像有1个repo引用
 
-[?](https://www.jb51.net/article/132041.htm#)
+root@souyunku:~/mydocker\# docker rmi 4acError response from daemon: conflict: unable to delete 4ac2d12f10cd \(must be forced\) - image is referencedinmultiple repositories
 
-| 12 | `root@souyunku:~/mydocker# docker rmi 4acError response from daemon: conflict: unable to delete 4ac2d12f10cd (must be forced) - image is referencedinmultiple repositories` |
-| :--- | :--- |
-
-
-**2.解决方法**  
-
+**2.解决方法**
 
 **删除REPOSITORY**
 
