@@ -77,11 +77,7 @@ root@souyunku:~/mydocker\# docker rmi 4acError response from daemon: conflict: u
 
 即删除时指定名称，而不是IMAGE ID。
 
-[?](https://www.jb51.net/article/132041.htm#)
-
-| 12 | `root@souyunku:~/mydocker# docker rmi souyunku/nginx:v1Untagged: souyunku/nginx:v1` |
-| :--- | :--- |
-
+root@souyunku:~/mydocker\# docker rmi souyunku/nginx:v1Untagged: souyunku/nginx:v1
 
 再删除IMAGE ID就可以了：
 
