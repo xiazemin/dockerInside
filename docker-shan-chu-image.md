@@ -22,3 +22,23 @@ docker rmi $\(docker images \| grep "^&lt;none&gt;" \| awk "{print $3}"\)
 
 docker rmi $\(docker images -q\)
 
+$docker rm 6b362a9f73eb
+
+Error response from daemon: No such container: 6b362a9f73eb
+
+原因：删除镜像用的命令是rmi 不是rm
+
+$docker rmi 9772288ea0c5
+
+Error response from daemon: conflict: unable to delete 9772288ea0c5 \(must be forced\) - image is being used by stopped container 854018a04c25
+
+必须先停止容器再删除镜像
+
+
+
+
+
+
+
+
+
