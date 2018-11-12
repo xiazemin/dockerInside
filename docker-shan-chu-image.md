@@ -53,5 +53,11 @@ $ docker rmi 36b1e23becabc0b27c5787712dce019982c048665fd9e7e6cb032a46bcac510d
 
 Error response from daemon: conflict: unable to delete 36b1e23becab \(must be forced\) - image is being used by stopped container cb6c7ab61a94
 
+$docker rm cb6c7ab61a94
 
+cb6c7ab61a94
+
+$ docker rmi 36b1e23becabc0b27c5787712dce019982c048665fd9e7e6cb032a46bcac510d
+
+Untagged: hub.c.163.com/library/swarm:latest
 
