@@ -47,5 +47,14 @@ $ docker image inspect --format='{{.RepoTags}} {{.Id}} {{.Parent}}' $(docker ima
 [ifconfig/curl:latest] sha256:56a5eb941d86dd20a942b1eac4faafbb731d269266ce6317dedcc5b98ed55e3d sha256:0f2d38480c888a4df93014c021d91b548e41113467bf45389658d097f93ec198
 ```
 
+原因是有另外的 image FROM 了这个 image，可以使用下面的命令列出所有在指定 image 之后创建的 image 的父 image
+
+  
+
+
+
+
+
+
 
 
