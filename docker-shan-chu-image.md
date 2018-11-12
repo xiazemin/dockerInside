@@ -42,16 +42,10 @@ $sudo docker rmi 6b362a9f73eb
 
 Error response from daemon: conflict: unable to delete 6b362a9f73eb \(cannot be forced\) - image has dependent child images
 
-
-
 ```
 $ docker image inspect --format='{{.RepoTags}} {{.Id}} {{.Parent}}' $(docker image ls -q --filter since=6b362a9f73eb)
 [ifconfig/curl:latest] sha256:56a5eb941d86dd20a942b1eac4faafbb731d269266ce6317dedcc5b98ed55e3d sha256:0f2d38480c888a4df93014c021d91b548e41113467bf45389658d097f93ec198
 ```
-
-
-
-\[ifconfig/curl:latest\] sha256:56a5eb941d86dd20a942b1eac4faafbb731d269266ce6317dedcc5b98ed55e3d sha256:0f2d38480c888a4df93014c021d91b548e41113467bf45389658d097f93ec198
 
 
 
