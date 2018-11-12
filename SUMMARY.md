@@ -69,4 +69,5 @@
 * [linux namespace常用命令](linux-namespacechang-yong-ming-ling.md)
 * [network namespace](network-namespace.md)
 * [docker 删除image](docker-shan-chu-image.md)
+* [清理docker产生的垃圾文件](qing-li-docker-chan-sheng-de-la-ji-wen-jian.md)
 
