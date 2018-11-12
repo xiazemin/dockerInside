@@ -49,12 +49,9 @@ $ docker image inspect --format='{{.RepoTags}} {{.Id}} {{.Parent}}' $(docker ima
 
 原因是有另外的 image FROM 了这个 image，可以使用下面的命令列出所有在指定 image 之后创建的 image 的父 image
 
-  
+$ docker rmi 36b1e23becabc0b27c5787712dce019982c048665fd9e7e6cb032a46bcac510d
 
-
-
-
-
+Error response from daemon: conflict: unable to delete 36b1e23becab \(must be forced\) - image is being used by stopped container cb6c7ab61a94
 
 
 
